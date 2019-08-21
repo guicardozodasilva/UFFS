@@ -1,0 +1,127 @@
+/* formatações gerais */
+
+html { background-color:#F6F6F6 }
+            
+main { 
+    width:955px; 
+    margin:-1px auto 10px; 
+    border:1px solid #ddd; 
+    background-color:#FFF; 
+    font-family:Arial, Helvetica, sans-serif 
+}
+
+header { 
+    width:955px; 
+    height:95px 
+}
+
+nav { 
+    width: 955px; 
+    background-color: #5D240A 
+}
+
+nav ul { 
+    list-style:none; 
+    margin:0; 
+    padding:4px }
+
+nav ul li { 
+    display:inline-block 
+}
+
+nav ul li a { 
+    font-size: 0.85em; 
+    text-decoration: none; 
+    color: #FFF; 
+    padding: 4px 20px 
+}
+
+nav ul li a:hover { 
+    background-color: #B4531A 
+}
+
+h4 ul li { 
+    float:left; 
+    margin:30px 20px; 
+    width:600px 
+}
+
+footer { 
+    clear:both; 
+    width:700px; 
+    margin:0 auto; 
+    font-size:0.75em; 
+    text-align:center;
+    background-color:#ECECEC; 
+    padding:5px 
+}
+
+h1, h2, h4 { 
+    font-family:Georgia, "Times New Roman", Times, serif; 
+    color:#C63; 
+    font-style:italic; 
+    letter-spacing:-0.05em
+}
+
+h1 { 
+    font-size:2.6em; 
+    margin:0 5px; 
+}
+
+h4 { 
+    font-size:1.6em; 
+    margin:0 5px; 
+}
+
+p, li, dl { 
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; 
+    font-size:0.9em; 
+    color:#555; 
+    line-height:1.8 
+}
+
+#img_principal { 
+    float:none;
+}
+
+figure { 
+    float: left;
+    margin: 70px;
+}
+
+figure img {
+    width: 800px;
+    height: 400px;
+}
+
+#gostou {
+    clear: left;
+}
+
+/* coloca borda e levemente rotaciona as imagens*/
+figure:hover {
+    box-shadow: 5px 5px 10px gray;
+    transform: scale(1.2) rotate(-5deg);
+    transition: 0.5s;
+}
+
+/* formulário */
+input, select, textarea {
+    border: 2px, solid, #826B16;
+    border-radius: 10px;
+    padding: 5px 10px; /*5 no top e botton; 10 no left e right */
+    margin: 10px 0;
+    font-family:"Trebuchet MS", Arial, Helvetica, sans-serif; 
+}
+
+input:focus, select:focus, textarea:focus {
+    border: 2px solid #572000;
+    background-color: #EEE;
+    font-weight: bold;   
+}
+
+.rotulo {
+    width: 140px;
+    display: inline-block;
+    text-align: right;
+}

@@ -3,51 +3,46 @@
 <head>
     <title>Site Profissional</title>
     <meta charset="utf-8">    
+    <link rel="stylesheet" href="css/estilos.css">
 </head>    
-<body>
-    <header>
-        <h1>Guilherme Cardozo da Silva</h1>
-        <p>Estudante de Ciência da Computação | UFFS</p>
-        <hr>
-    </header>    
-    
-    <!--área de navegação-->
-    <nav>
-        <ul>
-            <li><a href = "index.html">Página inicial</a></li>
-            <li><a href = "curriculum.html">Curriculum</a></li>
-            <li><a href = "temas.html">Temas de interesse</a></li>
-            <li><a href = "projetos/portfolio.html">Portfólio</a></li>
-            <li><a href = "contato.html">Contato</a></li>
-        </ul>    
-    </nav>
-    
+<body>    
     <!--parte principal da página-->
     <main>
+        <header>
+            <h1>Guilherme Cardozo da Silva</h1>
+            <p>Estudante de Ciência da Computação | UFFS</p>
+            <hr>
+        </header>    
+              
+        <!--área de navegação-->
+        <nav>
+            <ul>
+                <li><a href = "index.html">Página inicial</a></li>
+                <li><a href = "curriculum.html">Curriculum</a></li>
+                <li><a href = "temas.html">Temas de interesse</a></li>
+                <li><a href = "projetos/portfolio.html">Portfólio</a></li>
+                <li><a href = "contato.html">Contato</a></li>
+            </ul>    
+        </nav>
+            
         <h2>Entre em contato</h2>
 
         <form>
             <div>
-                <label for="nome">Nome completo:</label> 
-                <input type=”text” name="nome" id="nome" size="50" maxlength="50" required>  
+                <label for="nome" class="rotulo">Nome completo:</label> 
+                <input type=”text” name="nome" id="nome" size="50" maxlength="50" required autocomplete="off" autofocus>  
             </div>
 
-            <br>
-
             <div>
-                <label for="email">E-mail:</label> 
+                <label for="email" class="rotulo">E-mail:</label> 
                 <input type=”email” name="email" id="email" size="50" maxlength="50" required> 
             </div>
 
-            <br>
-
             <div>
-                <label for="telefone">Telefone:</label> 
+                <label for="telefone" class="rotulo">Telefone:</label> 
                 <input type=”tel” name="telefone" id="telefone" size="15" maxlength="15" placeholder="(xx) xxxxx-xxxx"
                 required> 
             </div> 
-
-            <br>
 
             <div>
                 <fieldset>
@@ -59,10 +54,8 @@
                 </fieldset>
             </div>
 
-            <br>
-
             <div>
-                <label for="assunto">Assunto:</label>
+                <label for="assunto" class="rotulo">Assunto:</label>
                 <select name="assunto"  id="assunto">
                     <option value="0">Selecione</option>
                     <option value="1">Dúvida</option>
@@ -71,8 +64,6 @@
                     <option value="4">Elogios</option>
                 </select>
             </div>
-
-            <br> 
 
             <div>
                 <fieldset>
@@ -84,15 +75,11 @@
                 </fieldset>      
             </div>
 
-            <br>
-
             <div>
                 <label for="msg">Mensagem:</label>
                 <textarea name="mensagem" id="msg">
                 </textarea>
             </div>
-
-            <br>
 
             <div>
                 <input type="submit" name="enviar" value="Enviar">
@@ -100,6 +87,16 @@
             </div>
 
         </form>
+
+        <h2>Nossa localização:</h2>
+        <details>
+            <details>
+                <summary>Ver endereço completo</summary>
+                <p>Yeshiva University, Jesuralém</p>
+            </details>
+
+            <iframe src="https://www.google.com/maps/d/embed?mid=1Mfr1NJFLcJsnBH69w0M2uzr7g5w" width="640" height="480"></iframe>
+        </details>
     </main>    
 
     <footer>
