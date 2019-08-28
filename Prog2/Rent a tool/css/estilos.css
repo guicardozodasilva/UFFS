@@ -1,0 +1,66 @@
+/* formatações gerais */
+
+header {
+    border:1px solid #ddd; 
+    background-color:#FFF; 
+    font-family:Arial, Helvetica, sans-serif;; 
+}
+
+h1, h2, h4 { 
+    font-family:Georgia, "Times New Roman", Times, serif; 
+    color:#C63; 
+    font-style:italic; 
+    letter-spacing:-0.05em;
+}
+
+#menu-login {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family:Georgia, "Times New Roman", Times, serif; 
+    color:#C63; 
+}
+
+.menu-opcoes ul {
+    padding:0px;
+    margin:0px;
+    background-color: #B4531A; 
+    list-style:none;
+}
+
+.menu-opcoes li { display: inline; }
+
+.menu-opcoes ul li a {
+    padding: 2px 10px;
+    display: inline-block;
+
+    /* visual do link */
+    background-color: #B4531A;
+    color: #FFF; 
+    text-decoration: none;
+    border-bottom:3px solid #B4531A;
+    clear: right;
+}
+
+.menu-categorias {
+    width: 200px;
+    float: left;
+    padding: 15px; 
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+    margin-bottom: 8px;
+    color: #ddd; 
+}
+
+.menu-categorias nav ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-categorias nav li {
+   padding: 8px;
+   margin-bottom: 8px; 
+   background-color: #B4531A;
+   color: #ddd;
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
