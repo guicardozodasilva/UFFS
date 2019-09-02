@@ -1,66 +1,286 @@
-/* formatações gerais */
-
-header {
-    border:1px solid #ddd; 
-    background-color:#FFF; 
-    font-family:Arial, Helvetica, sans-serif;; 
-}
-
-h1, h2, h4 { 
+/********************************************** config. gerais da estrutura da página */
+* {
+    box-sizing: border-box;    
+  }
+  
+  a {
+    text-decoration: none; /* todos os links sem sublinhado */
+  }
+  
+  body {
+    font-family: "Lucida Sans", sans-serif;
+    margin: 0;
+  }
+  
+  
+  /******************************************************************* layout colunas */
+  .col-1, .col-2, .col-3 {
+    float: left; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 100%;
+  }
+  
+  footer{
+      clear: left; 
+  }
+  
+  .container {
+    background-color: #F6F6F6 ;
+    overflow: hidden; 
+  }
+  
+  
+  
+  /*********************************************************************** header*/
+  header, footer {
+    background-color: #5D240A;
+    color: #ffffff;               
+    padding: 10px;
+    position: relative;
+  }
+  
+  header a:link, header a:visited, footer a:link, footer a:visited {
+    color: #fff;
+  }
+  
+  header h1 {
+    position: relative;
+    padding-left: 20px;
+    text-shadow: 2px 0 2px #000;  
+    font-size: 3em;
     font-family:Georgia, "Times New Roman", Times, serif; 
     color:#C63; 
-    font-style:italic; 
-    letter-spacing:-0.05em;
-}
-
-#menu-login {
+    font-style:italic;
+  }
+  
+  #menu-login {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 10px;
+  }
+  
+  #login, #carrinho {
+    margin: 0 10px;
+  }
+  
+  /******************************************************************** menu superior */ 
+  .menu-opcoes ul {
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+  
+  .menu-opcoes ul li {
+    margin-right: 10px;
+    list-style-type: none;
+  }
+  
+  .menu-opcoes a:hover {
+    text-shadow: 2px 2px 2px #000;
+    border-bottom: 2px solid white;
+  }
+  
+  .menu-opcoes a:active {
+    color: #5D240A;
+  }
+  
+  /************************************************************************* titulos das secoes */
+  h2 {
+    padding: 10px 0 0px 10px; 
+    font-size: 1.3em;
     font-family:Georgia, "Times New Roman", Times, serif; 
     color:#C63; 
-}
-
-.menu-opcoes ul {
-    padding:0px;
-    margin:0px;
-    background-color: #B4531A; 
-    list-style:none;
-}
-
-.menu-opcoes li { display: inline; }
-
-.menu-opcoes ul li a {
-    padding: 2px 10px;
-    display: inline-block;
-
-    /* visual do link */
-    background-color: #B4531A;
-    color: #FFF; 
-    text-decoration: none;
-    border-bottom:3px solid #B4531A;
-    clear: right;
-}
-
-.menu-categorias {
-    width: 200px;
-    float: left;
-    padding: 15px; 
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-    margin-bottom: 8px;
-    color: #ddd; 
-}
-
-.menu-categorias nav ul{
+    font-style:italic;
+  }
+  
+  /***************************************************************************** menu categorias */
+  .menu-categorias {
+    background-color: #5D240A; 
+    border-radius: 10px;    
+  }
+  
+  .menu-categorias ul{
     list-style-type: none;
     margin: 0;
+    padding: 5px;
+  }
+  
+  .menu-categorias li {
+    text-transform: uppercase;
+    background-color: white;
+    margin-bottom: 1px;
+    padding: 5px 10px;
+  }
+  
+  .menu-categorias li:hover {
+    background-color: #ddd;
+  }
+  
+  .menu-categorias a {
+    color: #333333;
+    text-decoration: none;
+  } 
+  
+  /************************************************************************************ busca */
+  section.busca {
+    border-radius: 10px;
+    background-color: #5D240A; 
+    padding: 15px;
+  }
+  
+  .busca input[type=search] {
+    width: 80%; 
+  }
+  
+  /*********************************************************************************** produtos */
+  div.lista-produtos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  
+  div.produto{
+    width: 200px;
+    height: 250px;
+    margin: 10px;
+    background-color: white;
+    text-align: center;
+  }
+  
+  div.produto .rapida{
+    margin: 20px 5px;
+    padding: 3px;
+    background-color: #ccc;
+    cursor: pointer;
+  }
+  
+  div.produto .noCarrinho{
+    margin: 20px 5px;
+    padding: 3px;
+    background-color: lightgreen;  
+    cursor: default;
+  }
+  
+  div.produto figure{
+    margin:0;
+  }
+  
+  div.produto a{
+    color: #666;
+  }
+  
+  div.produto .precoInicial{
+    font-weight: bold;
+    text-decoration: line-through;
+    color: gray;
+  }
+  
+  div.produto .precoFinal{
+    font-weight: bold;
+    color: red;
+  }
+  
+  div.produto img{
+    width: 150px;
+    transition: 0.5s;
+  }
+  
+  div.produto:hover {
+    box-shadow: 2px 2px 5px #333;
+    transition: 0.5s;
+  }
+  
+  /************************************************************************** mais pedidos */
+  aside {
+    background: #5D240A;
+    border-radius: 10px;  
+  } 
+  
+  aside .lista-produtos{
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-around; 
+    padding-bottom: 20px;
+  }
+  
+  aside .produto {
+    transform: scale(0.7);
+    width: 150px;
+    height: 150px;
+  }
+  
+  /************************************************************************ redes sociais */
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .social {
     padding: 0;
-}
-
-.menu-categorias nav li {
-   padding: 8px;
-   margin-bottom: 8px; 
-   background-color: #B4531A;
-   color: #ddd;
-   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-}
+  }
+  
+  .social li{
+    display: inline;
+  }
+  
+  /*************************************************** div ajuda */
+  #ajuda{
+      width: 200px;
+      height: 100px;
+      background-color: #5D240A;
+      color: #B4531A;
+      padding: 5px;
+      position: fixed;
+      bottom: 0px;
+      right: 200px;
+    display: none;
+  }
+  
+  #ajuda #fechar{
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      background-color: #ccc;
+      border: 1px solid black;
+      padding: 2px 5px;
+      cursor: pointer;
+  }
+  
+  /********************************************************************************* queries **/
+  @media only screen and (min-width: 600px) {
+    /* para tablets: */
+      .col-1 {width: 30%;}
+      .col-2 {width: 70%;}
+      .col-3 {width: 100%;} 
+  
+      footer {
+        flex-direction: row;
+      }      
+  }
+  
+  @media only screen and (min-width: 1000px) {
+      /* para desktop: */
+      .col-1 {width: 20%;}
+      .col-2 {width: 60%;}
+      .col-3 {width: 20%;}
+  
+      .menu-opcoes {
+          position: absolute;
+          bottom: 0;
+          right: 10px;
+          display: initial;
+      }   
+          
+      .menu-opcoes ul li{
+          display: inline; /* menu superior se torna horizontal */
+      }   
+  
+      #ajuda{
+        display: initial;
+      }
+  }  
