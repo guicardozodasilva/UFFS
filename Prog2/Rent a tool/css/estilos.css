@@ -66,6 +66,10 @@
   }
   
   /******************************************************************** menu superior */ 
+  .menu-opcoes {
+    display: none;
+  }
+  
   .menu-opcoes ul {
     font-size: 1em;
     text-transform: uppercase;
@@ -269,6 +273,11 @@
       .col-2 {width: 60%;}
       .col-3 {width: 20%;}
   
+      /* quando eu mostro o menu inteiro, desaparece a palavar "Menu" */
+      #exibe-menu {
+        display: none;
+      }
+
       .menu-opcoes {
           position: absolute;
           bottom: 0;
