@@ -6,25 +6,26 @@ vetor: .word	2,-1,3,5,-7
 
 .text
 main:
-	la	a0, vetor
-	addi	a1, zero, 5
-	lw	s0, 0(a0)		#o valor do 1º nº é dito como o menor
-	addi	s1, a1, 0		#o índice do 1º nº é dito como o menor
+	la	a0, vetor		#carrega o vetor em a0
+	addi	a1, zero, 5		#tamanho do vetor em a1
+	addi	s9, zero, 0		#contador do laco
+	addi	s0, s9, 0		#o indice do primeiro numero do vetor eh dito como o menor
+	lw	s1, 0(a0)		#o valor do primeiro numero do vetor eh dito como o menor
 	jal	procura_menor
 	nop
 	ebreak
 procura_menor:
-	beq	a1, zero, fim_laco	#verifica se o laço acabou
-	lw	t0, 0(a0)		#le numeros do vetor
-	addi	a1, a1, -1		#decrementa a1 para controle do laço
-	addi	a0, a0, 4		#proximo endereco(proximo valor do vetor)
-	blt	t0, s0, menor_t0	#if(t0<t1) desvia para menor_t0
+	beq	s9, a1, fim_laco	#verifica se laco acabou
+	addi	s9, s9, 1		#incrementa contador do laco
+	addi	a0, a0, 4		#proximo endereco/valor do vetor
+	lw	t0, 0(a0)		#carrega valor atual do vetor em t0
+	blt	t0, s1, menor_t0	#if(to<s1), vai para a tag 'menor_t0'
 	j	procura_menor
 menor_t0:
-	addi	s1, a1, 0		
-	addi	s0, a0, 0 
+	addi	s0, s9, 0		#grava o indice do menor valor em s0
+	addi	s1, t0, 0		#grava o menor valor em s1
 	j	procura_menor
 fim_laco:
-	addi	a0, s0, 0
-	addi	a1, s1, 0
-	ret			
+	addi	a0, s0, 0		#retorna o índice do menor valor em a0
+	addi	a1, s1, 0		#retorna o menor valor em a1
+	ret
