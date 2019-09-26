@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Rent a Tool</title>
+	<link rel="stylesheet" href="css/estilos.css">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> <!-- web font Lobster -->
+	<link rel="stylesheet" type="text/css" href="css/carrinho-de-compras.css">
+</head>
+<body>
+	<!-- cabeçalho -->
+	<header>
+		<h1>Rent a Tool</h1>
+		<div id="menu-login">
+			<span id="login">Olá, visitante! (<a href="login.html">login</a>)</span>
+			<span id="carrinho"><a href="#">Meu carrinho <span id="numItensCarrinho">(2)</span><img src="img/cart.png" width="32" alt="carrinho de compras"></a></span>			
+		</div>
+		<p id="exibe-menu">Menu</p>
+		<nav class="menu-opcoes">    
+			<ul>
+				<li><a href="login.html">Minha Conta</a></li>
+				<li><a href="#">Programa de pontos</a></li>
+				<li><a href="#">Consumo solidário</a></li>
+				<li><a href="#">Quem somos</a></li>
+				<li><a href="#">Ajuda</a></li>
+			</ul>
+		</nav>
+	</header>
+	<!-- fim cabeçalho -->
+
+	<!-- area central com 3 colunas -->
+	<div class="container">
+		<section class="col-1">
+			<section class="busca">
+				<form>
+					<input type="search" placeholder="Busca..." name="busca">
+					<button>OK</button>
+				</form>
+			</section>
+
+			<section class="menu-categorias">
+				<h2>Categorias</h2>
+				<nav>
+					<ul>
+						<li><a href="#">Marcenaria</a></li>
+						<li><a href="#">Jardinagem</a></li>
+						<li><a href="#">Limpeza</a></li>
+						<li><a href="#">Escritório</a></li>
+						<li><a href="#">Mecânica</a></li>						
+					</ul>
+				</nav>
+			</section>
+		</section>	
+
+		<section class="col-2">
+			<h2>Meu Carrinho</h2>
+
+			<fieldset>
+				<table class="tab-produtos">
+					<tr id="lin-1">
+						<th>Nome do produto</th>
+						<th>Valor unitário</th>
+						<th>Quantidade</th>
+						<th>Total produto</th>
+					</tr>
+					<tr>
+						<td id="produto1">Projetor multimídia</td>
+						<td>R$20,00</td>
+						<td><input type="number" id="qntProduto1" name="qntProduto1" min="0" value="1" ></td>
+						<td><span id="totalProduto1">20,00</span></td>
+						<td>✖</td>
+					</tr>
+					<tr>
+						<td id="produto2">Mangueira</td>
+						<td>R$20,00</td>
+						<td><input type="number" id="qntProduto2" name="qntProduto2" min="0" value="1" ></td>
+						<td><span id="totalProduto2">20,00</span></td>
+						<td>✖</td>
+					</tr>       
+					<tr>
+						<td id="produto3">Lavadora de alta pressão</td>
+						<td>R$20,00</td>
+						<td><input type="number" id="qntProduto3" name="qntProduto3" min="0" value="1" ></td>
+						<td><span id="totalProduto3">20,00</span></td>
+						<td>✖</td>
+					</tr>    
+				</table>
+			</fieldset>
+
+			<fieldset>
+				<legend>Frete</legend>
+				<label class="frete">Retirar no local:</label>
+				<label><input type="radio" name="frete" value="rl" id="retirarLocal">R$ 0,00</label>
+				<br>
+				<label class="frete">Receber em casa:</label>
+				<label><input type="radio" name="frete" value="rc" id="receberCasa">R$ 20,00</label>
+			</fieldset>
+
+			<fieldset>
+				<legend>Total a pagar</legend>
+				<div id="totalPagar">30,00</div>
+			</fieldset>
+		</section>
+		<aside class="col-3">
+			<h2>Mais pedidos</h2>
+			<!-- container de mais pedidos -->
+			<div class="lista-produtos">
+
+				<!-- um produto -->
+				<div class="produto">     
+					<a href="#">                 
+						<figure>
+							<img src="img/produtos/projetor.jpg" alt="Projetor multimídia">
+							<figcaption>Projetor multimídia
+								<br><span class="precoFinal">R$ 20,00</span>
+							</figcaption>
+						</figure>        
+					</a>            
+				</div>
+				<!-- fim produto -->					
+				
+				<!-- um produto -->
+				<div class="produto"> 
+					<a href="#">                     
+						<figure>
+							<img src="img/produtos/computador.jpg" alt="Computador">
+							<figcaption>Computador
+								<br><span class="precoFinal">R$ 20,00</span>
+							</figcaption>
+						</figure>    
+					</a>                
+				</div>
+				<!-- fim produto -->	
+
+				<!-- um produto -->
+				<div class="produto">  
+					<a href="#">                    
+						<figure>
+							<img src="img/produtos/default.jpg" alt="Notebook">
+							<figcaption>Notebook
+								<br>De <span class="precoInicial">R$ 40,00</span> por <span class="precoFinal">R$ 20,00</span>
+							</figcaption>
+						</figure>     
+					</a>               
+				</div>
+				<!-- fim produto -->	
+
+			</div>									
+			<!-- adicione mais produtos --> 
+		</aside>
+	</div>
+	<!-- fim area central -->
+	<footer><p>Rent a Tool - Chapecó/SC</p>
+		<ul class="social">
+			<li><a href="http://facebook.com/rentatool"><img src="img/facebook.png" alt="Facebook"></a></li>
+			<li><a href="http://twitter.com/rentatool"><img src="img/twitter.png" alt="Twitter"></a></li>
+		</ul>
+		<div id="ajuda">Precisa de ajuda? <span id="fechar">x</span></div>
+	</footer>
+	<!-- fim rodape -->
+	<script src="js/index.js"></script>
+	<script src="js/cad_Compras.js"></script>
+</body>
+</html>
