@@ -6,7 +6,7 @@
 	<title>Rent a Tool</title>
 	<link rel="stylesheet" href="css/estilos.css">
 	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> <!-- web font Lobster -->
-	<link rel="stylesheet" type="text/css" href="css/carrinho-de-compras.css">
+	<link rel="stylesheet" type="text/css" href="css/carrinho.css">
 </head>
 <body>
 	<!-- cabeçalho -->
@@ -56,52 +56,63 @@
 		<section class="col-2">
 			<h2>Meu Carrinho</h2>
 
-			<fieldset>
 				<table class="tab-produtos">
 					<tr id="lin-1">
 						<th>Nome do produto</th>
-						<th>Valor unitário</th>
+						<th>Valor unitário (R$)</th>
 						<th>Quantidade</th>
-						<th>Total produto</th>
+						<th>Total produto (R$)</th>
 					</tr>
 					<tr>
 						<td id="produto1">Projetor multimídia</td>
-						<td>R$20,00</td>
-						<td><input type="number" id="qntProduto1" name="qntProduto1" min="0" value="1" ></td>
-						<td><span id="totalProduto1">20,00</span></td>
+						<td id="valorUnProduto1">R$ 20,00</td>
+						<td><input type="number" min="0" id="qntProduto1" name="qntProduto1" value="1" ></td>
+						<td><span id="totalProduto1"></span></td>
 						<td>✖</td>
 					</tr>
 					<tr>
 						<td id="produto2">Mangueira</td>
-						<td>R$20,00</td>
+						<td id="valorUnProduto2">R$ 10,00</td>
 						<td><input type="number" id="qntProduto2" name="qntProduto2" min="0" value="1" ></td>
-						<td><span id="totalProduto2">20,00</span></td>
+						<td><span id="totalProduto2"></span></td>
 						<td>✖</td>
 					</tr>       
 					<tr>
 						<td id="produto3">Lavadora de alta pressão</td>
-						<td>R$20,00</td>
+						<td id="valorUnProduto3">R$ 30,00</td>
 						<td><input type="number" id="qntProduto3" name="qntProduto3" min="0" value="1" ></td>
-						<td><span id="totalProduto3">20,00</span></td>
+						<td><span id="totalProduto3"></span></td>
 						<td>✖</td>
 					</tr>    
 				</table>
-			</fieldset>
+
+			<br>
 
 			<fieldset>
 				<legend>Frete</legend>
 				<label class="frete">Retirar no local:</label>
-				<label><input type="radio" name="frete" value="rl" id="retirarLocal">R$ 0,00</label>
+				<label><input type="radio" name="frete" value="rl" id="retirarLocal" checked>R$ 0,00</label>
 				<br>
 				<label class="frete">Receber em casa:</label>
 				<label><input type="radio" name="frete" value="rc" id="receberCasa">R$ 20,00</label>
 			</fieldset>
+			
+			<br>
 
 			<fieldset>
-				<legend>Total a pagar</legend>
-				<div id="totalPagar">30,00</div>
+				<legend>Total a pagar (R$)</legend>
+				<div id="totalPagar"></div>
 			</fieldset>
+			
+			<br>
+
+			<div class="botoes">	
+				<a href="index.html"><input type="button" value="Continuar comprando" id="continuarComprando"></a>
+				<a href="fecharPedido.php"><input type="button" value="Finalizar pedido" id="finalizarPedido"></a>
+			</div>
+
 		</section>
+
 		<aside class="col-3">
 			<h2>Mais pedidos</h2>
 			<!-- container de mais pedidos -->
@@ -159,7 +170,9 @@
 		<div id="ajuda">Precisa de ajuda? <span id="fechar">x</span></div>
 	</footer>
 	<!-- fim rodape -->
+
 	<script src="js/index.js"></script>
-	<script src="js/cad_Compras.js"></script>
+	<script src="js/carrinho.js"></script>
+
 </body>
 </html>
