@@ -1,5 +1,5 @@
 main:
-	addi 	a0, zero, 0 		#fatorial de n
+	addi 	a0, zero, 5 		#fatorial de n
 	jal 	fatorial
 	ebreak
 fatorial:
