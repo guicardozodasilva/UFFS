@@ -1,3 +1,8 @@
+<?php
+include "includes/cabecalho.php";
+include "includes/menu-lateral.php";
+?>
+
 <section class="col-2">
     <h2>Minha conta</h2>
     <div>
@@ -22,10 +27,12 @@
                     <strong>Ainda não é nosso cliente?</strong>
                 </legend>
                 <p>
-                    <a href="cad_cliente.html"></a>
-                    Cadastre-se<a> agora para utilizar nossos serviços</a>
+                    <a href="cad_cliente.php">Cadastre-se<a> agora para utilizar nossos serviços</a>
                 </p>
             </fieldset>
         </form>
     </div>
 </section>
+
+<?php include "includes/mais-pedidos.php"; ?>
+<?php include "includes/footer.php"; ?>
