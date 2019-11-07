@@ -9,7 +9,7 @@
 <body>
 	<!-- cabeçalho -->
 	<header>
-		<h1>Rent a Tool</h1>
+		<h1><a href="index.php">Rent a Tool</a></h1>
 		<div id="menu-login">
 			<span id="login">Olá, visitante! (<a href="login.php">login</a>)</span>
 			<span id="carrinho"><a href="carrinho.php">Meu carrinho <span id="numItensCarrinho">(2)</span><img src="img/cart.png" width="32" alt="carrinho de compras"></a></span>			
