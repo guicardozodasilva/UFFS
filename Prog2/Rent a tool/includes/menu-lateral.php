@@ -12,11 +12,14 @@
 		<h2>Categorias</h2>
 		<nav>
 			<ul>
-				<li><a href="#">Marcenaria</a></li>
-				<li><a href="#">Jardinagem</a></li>
-				<li><a href="#">Limpeza</a></li>
-				<li><a href="#">Escritório</a></li>
-				<li><a href="#">Mecânica</a></li>						
+			<?php
+			include_once "includes/categorias.php";
+			foreach($CATEGORIAS as $i => $n) {
+				echo "<li><a href='index.php?cat=$i'>
+				$n</a></li>";
+			}
+
+			?>
 			</ul>
 		</nav>
 	</section>
