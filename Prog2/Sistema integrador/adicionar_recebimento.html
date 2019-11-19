@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Sistema AD</title>
+	<link rel="stylesheet" href="css/estilos.css">
+	<link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+	<!-- cabeçalho -->
+	<header>
+		<h1>Sistema AD</h1>
+		<nav class="menu-opcoes">    
+			<ul>
+				<li><a href="#">Minha Conta</a></li>
+			</ul>
+		</nav>
+	</header>
+	<!-- fim cabeçalho -->
+	
+	<!-- menu lateral -->
+	<section class="col-1">
+		<section class="menu-lateral">
+			<nav>
+				<div class="item">
+					<input type="checkbox" id="check1">
+					<label for="check1">Menu</label>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+					</ul>
+				</div>
+				<div class="item">
+					<input type="checkbox" id="check2">
+					<label for="check2">Cadastrar</label>
+					<ul>
+						<li><a href="cad_congregacao.html">Congregação</a></li>
+						<li><a href="cad_membro.html">Membro</a></li>
+						<li><a href="cad_categoria.html">Categoria</a></li>
+					</ul>
+				</div>
+				<div class="item">
+					<input type="checkbox" id="check3">
+					<label for="check3">Pedidos</label>
+					<ul>
+						<li><a href="adicionar_recebimento.html">Adicionar recebimentos</a></li>
+						<li><a href="consultar.html">Consultar</a></li>
+						<li><a href="gerar_relatorio.html">Gerar relatório</a></li>
+					</ul>
+				</div>
+			</nav>
+		</section>
+	</section>	
+	<!-- fim menu lateral -->
+
+	<section class="col-2">
+		<h2>Adicionar recebimento</h2>
+		<br>
+		<div>
+			<form action="" method="post" id="form-cadastro">
+				<div class="form-item">
+					<label for="pagamento" class="rotulo">Pagamento em:</label><br>
+					<select name="pagamento" id="pagamento">
+						<option value="DN">Dinheiro</option>
+						<option value="CC">Cartão de crédito</option>
+						<option value="CD">Cartão de débito</option>
+						<option value="CQ">Cheque</option>
+						<option value="BB">Boleto bancário</option>
+						<option value="DB">Depósito bancário</option>
+						<option value="OT">Outros</option>
+					</select>
+					<span class="msg-erro" id="msg-pagamento"></span>
+				</div>
+				<br>
+				<div class="form-item">
+					<label for="parcelas" class="rotulo">Total de parcelas:</label><br>
+					<input type="text" id="parcelas" name="parcelas" size="5">
+					<span class="msg-erro" id="msg-parcelas"></span>
+				</div>
+				<br>
+				<div class="form-item">
+					<label for="valor" class="rotulo">Valor:</label><br>
+					<input type="text" id="valor" name="valor" size="15">
+					<span class="msg-erro" id="msg-valor"></span>
+				</div>
+				<br>
+				<div class="form-item">
+					<label for="dia" class="rotulo">Data:</label><br>
+					<input type="date" id="data" name="data">
+					<span class="msg-erro" id="msg-data"></span>
+				</div>
+				<br>
+				<div class="form-item">
+					<label for="categoria" class="rotulo">Categoria:</label><br>
+					<select name="categoria" id="categoria">
+						<option value="">Selecione</option>
+					</select>
+					<span class="msg-erro" id="msg-categoria"></span>
+				</div>
+				<br>				    
+				<div>
+					<table>
+						<tr>
+							<td>
+								<div>
+									<a class="button" id="btnAdicionar" href="#">Adicionar</a>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</form>
+	</div>			
+</section>
+</body>
+</html>
