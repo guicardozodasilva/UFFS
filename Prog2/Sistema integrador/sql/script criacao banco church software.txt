@@ -1,0 +1,55 @@
+DROP DATABASE IF EXISTS ChurchSoftware;
+
+CREATE DATABASE ChurchSoftware DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE ChurchSoftware;
+
+DROP USER IF EXISTS 'admchurch'@'localhost';
+
+CREATE USER 'admchurch'@'localhost' IDENTIFIED BY '12345'; 
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ChurchSoftware.* TO 'admchurch'@'localhost';
+
+CREATE TABLE congregacao (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,  
+  cnpj VARCHAR(18) NOT NULL,
+  nome VARCHAR(50) NOT NULL,  
+  endereco VARCHAR(50) NOT NULL,
+  bairro VARCHAR(20) NOT NULL,
+  cidade VARCHAR(50),
+  uf CHAR(2),
+  telefone VARCHAR(14),
+  email VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE membro (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,  
+  cpf VARCHAR(11) NOT NULL,
+  nome VARCHAR(50) NOT NULL, 
+  endereco VARCHAR(50) NOT NULL,
+  bairro VARCHAR(20) NOT NULL,
+  cidade VARCHAR(50),
+  uf CHAR(2),
+  telefone VARCHAR(14),
+  email VARCHAR(50) NOT NULL,
+  idCongregacao INTEGER,
+  FOREIGN KEY (idCongregacao) REFERENCES congregacao(id) 
+);
+
+CREATE TABLE categoria (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,  
+  nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE movimentacao (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,  
+  ehSaida BOOLEAN DEFAULT FALSE,
+  ehEntrada BOOLEAN DEFAULT FALSE,
+  valor REAL,
+  data DATE,
+  descricao TEXT,
+  idCategoria INTEGER,
+  FOREIGN KEY (idCategoria) REFERENCES categoria(id) 
+);
+
+
