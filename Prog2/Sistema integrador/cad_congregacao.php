@@ -1,58 +1,5 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta charset="utf-8">
-	<title>Sistema AD</title>
-	<link rel="stylesheet" href="css/estilos.css">
-	<link rel="stylesheet" href="css/forms.css">
-</head>
-<body>
-	<!-- cabeçalho -->
-	<header>
-		<h1>Sistema AD</h1>
-		<nav class="menu-opcoes">    
-			<ul>
-				<li><a href="#">Minha Conta</a></li>
-			</ul>
-		</nav>
-	</header>
-	<!-- fim cabeçalho -->
-
-	<!-- menu lateral -->
-	<section class="col-1">
-		<section class="menu-lateral">
-			<nav>
-				<div class="item">
-					<input type="checkbox" id="check1">
-					<label for="check1">Menu</label>
-					<ul>
-						<li><a href="index.html">Home</a></li>
-					</ul>
-				</div>
-				<div class="item">
-					<input type="checkbox" id="check2">
-					<label for="check2">Cadastrar</label>
-					<ul>
-						<li><a href="cad_congregacao.html">Congregação</a></li>
-						<li><a href="cad_membro.html">Membro</a></li>
-						<li><a href="cad_categoria.html">Categoria</a></li>
-					</ul>
-				</div>
-				<div class="item">
-					<input type="checkbox" id="check3">
-					<label for="check3">Pedidos</label>
-					<ul>
-						<li><a href="adicionar_recebimento.html">Adicionar recebimentos</a></li>
-						<li><a href="consultar.html">Consultar</a></li>
-						<li><a href="gerar_relatorio.html">Gerar relatório</a></li>
-					</ul>
-				</div>
-			</nav>
-		</section>
-	</section>	
-	<!-- fim menu lateral -->
-
+<?php include "includes/cabecalho.php"; ?>
+<?php include "includes/menu_lateral.php"; ?>
 	<section class="col-2">
 		<h2>Cadastrar congregação</h2>
 		<br>
@@ -60,7 +7,7 @@
 			<form action="" method="post" id="form-cadastro">
 				<div class="form-item">
 					<label for="nome" class="rotulo">Nome:</label><br>
-					<input type="text" id="nome" name="nome" size="50" placeholder="Nome da congregação">
+					<input type="text" id="nome" name="nome" size="50" placeholder="Nome da congregação" required autofocus>
 					<span class="msg-erro" id="msg-nome"></span>
 				</div>
 				<br>
@@ -133,32 +80,29 @@
 					<label for="telefone" class="rotulo">Telefone:</label><br>
 					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50">
 					<span class="msg-erro" id="msg-telefone"></span>
-				</div>
+				</div>	
 				<br>		    
 				<div>
 					<table>
 						<tr>
 							<td>
 								<div>
-									<a class="button" id="btnGravar" href="#">Gravar</a>
+									<input type="submit" id="botao" value="Confirmar" href="adm/congregacaoController.php?acao=cadastro">
+								<!-- <a class="button" id="btnGravar" href="adm/congregacaoController.php?acao=cadastro">Gravar</a> -->	
 								</div>
 							</td>
 							<td>
 								<div>
-									<a class="button" id="btnEditar" href="#">Editar</a>
+									<a class="button" id="btnEditar" href="adm/produtoController.php">Ver congregações</a>
 								</div>
-							</td>  
-							<td>
-								<div>
-									<a class="button" id="btnExcluir" href="#">Excluir</a>
-								</div>
-							</td>     
+							</td>   
 						</tr>
 					</table>
 				</div>
 			</div>
 		</form>
-	</div>			
+	</div>		
 </section>
+<script src="js/cad_congregacao.js"></script>
 </body>
 </html>
