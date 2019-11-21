@@ -14,8 +14,18 @@ class Congregacao
         return $result;
     } 
     
-    function listarTodos($campo = "produto.nome", $ordem = "asc") {
-        $sql = "SELECT produto.id as idProduto, produto.nome as nomeProduto, imagem, descricao, tensao, catMarcenaria, catJardinagem, catLimpeza, catEscritorio, catMecanica, catOutros, qtde, valor, desconto, (valor - desconto) as valorFinal, fabricante.id as idFabricante, fabricante.nome as nomeFabricante FROM produto LEFT JOIN fabricante ON produto.idFabricante = fabricante.id ORDER BY $campo $ordem";
+    function listarTodos($campo = "congregacao.nome", $ordem = "asc") {
+        $sql = "SELECT congregacao.id as idCongregacao, 
+                       congregacao.nome as nomeCongregacao, 
+                       cnpj, 
+                       endereco, 
+                       bairro, 
+                       cidade, 
+                       uf, 
+                       email, 
+                       telefone 
+                  FROM congregacao  
+                 ORDER BY $campo $ordem";
         $result = $this->conexao->select($sql);
         return $result;
     }
@@ -23,13 +33,13 @@ class Congregacao
    function cadastrar($dados) {
         $sql = "INSERT INTO congregacao (nome, cnpj, endereco, bairro, cidade, uf, email, telefone) 
         	VALUES ('{$dados['nome']}', 
-        	{$dados['cnpj']}, 
-        	{$dados['endereco']}, 
-        	{$dados['bairro']},  
-        	{$dados['cidade']}, 
-        	{$dados['uf']}, 
-        	{$dados['email']}, 
-        	{$dados['telefone']})";                        
+        	'{$dados['cnpj']}', 
+        	'{$dados['endereco']}', 
+        	'{$dados['bairro']}',  
+        	'{$dados['cidade']}', 
+        	'{$dados['uf']}', 
+        	'{$dados['email']}', 
+        	'{$dados['telefone']}')";                        
         return $this->conexao->query($sql);
     }
 
@@ -54,7 +64,7 @@ class Congregacao
     }    
         
     function excluir($id) {
-        $sql = "DELETE FROM produto WHERE id = $id";
+        $sql = "DELETE FROM congregacao WHERE id = $id";
         return $this->conexao->query($sql);
     }
     

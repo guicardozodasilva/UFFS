@@ -81,16 +81,16 @@
 				}
 				break;
 			case "exclui":
-				$titulo = "Exclusão de Produto";
+				$titulo = "Exclusão de Congregação";
 				if(is_numeric($_GET['id'])){
-					$produto = new Produto();
-					$resultado = $produto->excluir($_GET['id']);
+					$congregacao = new Congregacao();
+					$resultado = $congregacao->excluir($_GET['id']);
 					if($resultado){
-						$mensagem = "Produto excluído com sucesso";
+						$mensagem = "Congregação excluída com sucesso";
 					}
 					else{
-						$mensagem = "Erro. O produto não foi excluído<br>";
-						$mensagem .= $produto->erro();
+						$mensagem = "Erro. A congregação não foi excluída<br>";
+						$mensagem .= $congregacao->erro();
 					}
 					
 				}
@@ -102,13 +102,13 @@
 		}
 	}
 	else {
-		$titulo = "Relatório de Produtos";
-		$produto = new Produto();
+		$titulo = "Congregações cadastradas";
+		$congregacao = new Congregacao();
 		if(isset($_GET['campo']) & isset($_GET['ordem']))
-			$lista = $produto->listarTodos($_GET['campo'], $_GET['ordem']);
+			$lista = $congregacao->listarTodos($_GET['campo'], $_GET['ordem']);
 		else
-			$lista = $produto->listarTodos();
-		include "views/produtoIndex.php";
+			$lista = $congregacao->listarTodos();
+		include "views/congregacaoIndex.php";
 	} 
 	?>
 
