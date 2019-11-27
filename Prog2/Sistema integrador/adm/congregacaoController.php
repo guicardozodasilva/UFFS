@@ -38,46 +38,33 @@
 				break;
 			
 			case "altera":
-				$titulo = "Alteração de Produto";
+				$titulo = "Alteração das informações da Congregação";
 				if(isset($_POST['alterar'])){
 					//dados foram submetidos
 					$dados = array();
-					$dados['id'] = $_POST['idProduto'];
+					$dados['id'] = $_POST['idCongregacao'];
 					$dados['nome'] = $_POST['nome'];
-					$dados['idFabricante'] = ($_POST['idFabricante'] == 0)? 'NULL' : $_POST['idFabricante'];
-					$dados['imagem'] = (!empty($_FILES['arquivo']['name']))? $_FILES['arquivo']['name']: $_POST['imagemAtual'];
-					$dados['descricao'] = $_POST['descricao'];
-					$dados['tensao'] = $_POST['tensao'];
-					$dados['catMarcenaria'] = isset($_POST['marcenaria'])? 1 : 0;
-					$dados['catJardinagem'] = isset($_POST['jardinagem'])? 1 : 0;
-					$dados['catLimpeza'] = isset($_POST['limpeza'])? 1 : 0;
-					$dados['catEscritorio'] = isset($_POST['escritorio'])? 1 : 0;
-					$dados['catMecanica'] = isset($_POST['mecanica'])? 1 : 0;
-					$dados['catOutros'] = isset($_POST['outros'])? 1 : 0;
-					$dados['qtde'] = $_POST['quantidade'];
-					$dados['valor'] = $_POST['valor'];
-					$dados['desconto'] = $_POST['desconto'];
-					$produto = new Produto();
-					$resultado = $produto->alterar($dados);
-					if($resultado){
-						$mensagem = "O produto <strong>{$dados['nome']}</strong> foi alterado com sucesso";
-						// TENTA O UPLOAD
-						if(!empty($_FILES['arquivo']['name'])){
-							if(!move_uploaded_file($_FILES['arquivo']['tmp_name'], "../img/produtos/{$_FILES['arquivo']['name']}")){
-								$mensagem.="<br>No entanto, a imagem não pode ser enviada. Contate o suporte";
-							}
-						}
-					}
+					$dados['cnpj'] = $_POST['cnpj'];
+					$dados['endereco'] = $_POST['endereco'];
+					$dados['bairro'] = $_POST['bairro'];
+					$dados['cidade'] = $_POST['cidade'];
+					$dados['uf'] = $_POST['uf'];
+					$dados['email'] = $_POST['email'];
+					$dados['telefone'] = $_POST['telefone'];
+					$congregacao = new Congregacao();
+					$resultado = $congregacao->alterar($dados);
+					if($resultado)
+						$mensagem = "A congregação <strong>{$dados['nome']}</strong> foi alterada com sucesso";
 					else{
-						$mensagem = "Erro. O produto <strong>{$dados['nome']}</strong> não foi alterado";
-						$mensagem .= $produto->erro();
+						$mensagem = "Erro. A congregação <strong>{$dados['nome']}</strong> não foi alterada";
+						$mensagem .= $congregacao->erro();
 					}
-					include "views/produtoConfirmacao.php";
+					include "views/congregacaoConfirmacao.php";
 				}
 				else{ // carrega dados atuais
-					$produto = new Produto();
-					$prod = $produto->consultaProduto($_GET['id']);
-					include "views/produtoAltera.php";
+					$congregacao = new Congregacao();
+					$congreg = $congregacao->consultaCongregacao($_GET['id']);
+					include "views/congregacaoAltera.php";
 				}
 				break;
 			case "exclui":
