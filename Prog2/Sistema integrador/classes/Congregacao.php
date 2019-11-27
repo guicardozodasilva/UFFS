@@ -44,28 +44,37 @@ class Congregacao
     }
 
     function alterar($dados) {
-        $sql = "UPDATE produto SET 
-        nome = '{$dados['nome']}', 
-        idFabricante = {$dados['idFabricante']}, 
-        imagem = '{$dados['imagem']}', 
-        descricao = '{$dados['descricao']}', 
-        tensao = {$dados['tensao']}, 
-        catMarcenaria = {$dados['catMarcenaria']}, 
-        catJardinagem = {$dados['catJardinagem']}, 
-        catLimpeza = {$dados['catLimpeza']}, 
-        catEscritorio = {$dados['catEscritorio']}, 
-        catMecanica = {$dados['catMecanica']}, 
-        catOutros = {$dados['catOutros']}, 
-        qtde =  {$dados['qtde']} , 
-        valor = {$dados['valor']}, 
-        desconto = {$dados['desconto']} 
-        WHERE id = {$dados['id']}";                        
+        $sql = "UPDATE congregacao SET nome = '{$dados['nome']}', 
+                cnpj = '{$dados['cnpj']}', 
+                endereco = '{$dados['endereco']}', 
+                bairro = '{$dados['bairro']}',  
+                cidade = '{$dados['cidade']}', 
+                uf = '{$dados['uf']}', 
+                email = '{$dados['email']}', 
+                telefone = '{$dados['telefone']}'
+          WHERE id = {$dados['id']}";                        
         return $this->conexao->query($sql);
     }    
         
     function excluir($id) {
         $sql = "DELETE FROM congregacao WHERE id = $id";
         return $this->conexao->query($sql);
+    }
+
+    function consultaCongregacao($id) {
+        $sql = "SELECT congregacao.id as idCongregacao, 
+                       congregacao.nome as nomeCongregacao, 
+                       cnpj, 
+                       endereco, 
+                       bairro, 
+                       cidade, 
+                       uf, 
+                       email, 
+                       telefone 
+                  FROM congregacao  
+                 WHERE congregacao.id = $id";
+        $result = $this->conexao->select($sql);
+        return $result;
     }
     
     function erro(){

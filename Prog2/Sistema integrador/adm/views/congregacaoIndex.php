@@ -1,6 +1,8 @@
 <h2><?=$titulo;?></h2>
-<p>| <a href="produtoController.php?acao=cadastro">
-inserir novo</a> |</p>
+<br>
+<p>| <a href="../cad_congregacao.php">
+Cadastrar nova congregação</a> |</p>
+<br>
 <table border="1" style="border-collapse: collapse">
 	<tr>
 		<th>Código <a href="?campo=idCongregacao&ordem=asc">&and;</a>
