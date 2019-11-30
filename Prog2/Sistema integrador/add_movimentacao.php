@@ -1,10 +1,19 @@
 <?php include "includes/cabecalho.php"; ?>
 <?php include "includes/menu_lateral.php"; ?>
 	<section class="col-2">
-		<h2>Adicionar recebimento</h2>
+		<h2>Adicionar movimentacao</h2>
 		<br>
 		<div>
 			<form action="" method="post" id="form-cadastro">
+				<div class="form-item">
+					<label for="tipoMovimentacao" class="rotulo">Tipo movimentacao:</label><br>
+					<select name="tipoMovimentacao" id="tipoMovimentacao">
+						<option value="EN">Entrada</option>
+						<option value="SD">Saída</option>
+					</select>
+					<span class="msg-erro" id="msg-tipoMovimentacao"></span>
+				</div>
+				<br>
 				<div class="form-item">
 					<label for="pagamento" class="rotulo">Pagamento em:</label><br>
 					<select name="pagamento" id="pagamento">
@@ -50,9 +59,14 @@
 						<tr>
 							<td>
 								<div>
-									<a class="button" id="btnAdicionar" href="#">Adicionar</a>
+									<input class="button" id="btnGravar" type="submit" value="Confirmar" name="cadastrar">
 								</div>
 							</td>
+							<td>
+								<div>
+									<a class="button" id="btnEditar" href="adm/movimentacaoController.php">Ver movimentacoes</a>
+								</div>
+							</td>   
 						</tr>
 					</table>
 				</div>
