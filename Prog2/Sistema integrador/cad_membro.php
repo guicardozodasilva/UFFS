@@ -4,7 +4,7 @@
 		<h2>Cadastrar membro</h2>
 		<br>
 		<div>
-			<form action="" method="post" id="form-cadastro">
+			<form action="adm/membroController.php?acao=cadastro" method="post" id="form-cadastro">
 				<div class="form-item">
 					<label for="nome" class="rotulo">Nome:</label><br>
 					<input type="text" id="nome" name="nome" size="50" placeholder="Nome completo">
@@ -18,14 +18,18 @@
 				</div>
 				<br>
 				<div class="form-item">
-					<label for="congregacaoPertencente" class="rotulo">Congregação pertencente:</label><br>
-					<select name="congregacaoPertencente" id="congregacaoPertencente">
+					<label for="idCongregacao" class="rotulo">Congregação pertencente:</label><br>
+					<select name="idCongregacao" id="idCongregacao">
 						<option value="">Selecione a congregação</option>
-						<option value="BV">Bela Vista</option>
-						<option value="MT">Maria Terezinha</option>
-						<option value="SD">Sede</option>
+						<?php 
+						require "classes/Membro.php";
+						$membro = new Membro();
+						$listaCongreg = $membro->listarCongregacoes();
+						foreach($listaCongreg as $f)
+							echo "<option value = \"{$f['id']}\">{$f['nome']}</option>";
+						?> 
 					</select>
-					<span class="msg-erro" id="msg-congregacaoPertencente"></span>
+					<span class="msg-erro" id="msg-idCongregacao"></span>
 				</div>
 				<br>
 				<div class="form-item">
@@ -47,8 +51,8 @@
 				</div>
 				<br>
 				<div class="form-item">
-					<label for="estado" class="rotulo">Estado:</label><br>
-					<select name="estado" id="estado">
+					<label for="uf" class="uf">Estado:</label><br>
+					<select name="uf" id="uf">
 						<option value="">Selecione o estado</option>
 						<option value="AC">AC</option>
 						<option value="AL">AL</option>
@@ -86,27 +90,29 @@
 					<input type="email" id="email" name="email" placeholder="fulano@dominio" size="50">
 					<span class="msg-erro" id="msg-email"></span>
 				</div>
+				<br>
+				<div class="form-item">
+					<label for="telefone" class="rotulo">Telefone:</label><br>
+					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50" required s>
+					<span class="msg-erro" id="msg-telefone"></span>
+				</div>	
 				<br>				    
 				<div>
 					<table>
 						<tr>
 							<td>
 								<div>
-									<a class="button" id="btnGravar" href="#">Gravar</a>
+									<input class="button" id="btnGravar" type="submit" value="Confirmar" name="cadastrar">
 								</div>
 							</td>
 							<td>
 								<div>
-									<a class="button" id="btnEditar" href="#">Editar</a>
+									<a class="button" id="btnEditar" href="adm/membroController.php">Ver membros</a>
 								</div>
-							</td>  
-							<td>
-								<div>
-									<a class="button" id="btnExcluir" href="#">Excluir</a>
-								</div>
-							</td>     
+							</td>   
 						</tr>
 					</table>
+				</div>
 				</div>
 			</div>
 		</form>

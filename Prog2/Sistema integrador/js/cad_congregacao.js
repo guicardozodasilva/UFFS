@@ -25,6 +25,7 @@ function validaCadastro(){
 	else
 		ocultaErro(erro);*/
 	
+	
 	// validação do campo cnpj
 	campo = document.getElementById("cnpj");
 	erro = document.getElementById("msg-cnpj")

@@ -43,8 +43,7 @@ CREATE TABLE categoria (
 
 CREATE TABLE movimentacao (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,  
-  ehSaida BOOLEAN DEFAULT FALSE,
-  ehEntrada BOOLEAN DEFAULT FALSE,
+  tipoMovimentacao CHAR(2),
   valor REAL,
   data DATE,
   descricao TEXT,

@@ -1,38 +1,51 @@
-<h2>Alteração informações da Congregação</h2>
+<h2>Alteração informações do Membro</h2>
 <br>
-			<form action="congregacaoController.php?acao=altera" method="post" id="form-cadastro">
+			<form action="membroController.php?acao=altera" method="post" id="form-cadastro">
 				<div class="form-item">
 					<label for="nome" class="rotulo">Nome:</label><br>
 					<input type="text" id="nome" name="nome" size="50" placeholder="Nome da congregação" required autofocus
-					value="<?=$congreg[0]['nomeCongregacao']?>">
+					value="<?=$memb[0]['nomeMembro']?>">
 				</div>
 				<br>
 				<div class="form-item">
-					<label for="cnpj" class="rotulo">CNPJ:</label><br>
-					<input type="text" id="cnpj" name="cnpj" size="20" placeholder="Número do CNPJ" required value="<?=$congreg[0]['cnpj']?>">
+					<label for="cpf" class="rotulo">CPF:</label><br>
+					<input type="text" id="cpf" name="cpf" size="20" placeholder="Número do CPF" required value="<?=$memb[0]['cpf']?>">
+				</div>
+				<br>
+				<div class="form-item">
+					<label for="idCongregacao" class="rotulo">Congregação pertencente:</label><br>
+					<select name="idCongregacao" id="idCongregacao" value="<?=$memb[0]['idCongregacao']?>" selected="<?=$memb[0]['nomeCongregacao']?>">
+						<option value="">Selecione a congregação</option>
+						<?php 
+						$listaCongreg = $membro->listarCongregacoes();
+						foreach($listaCongreg as $f)
+							echo "<option value = \"{$f['id']}\">{$f['nome']}</option>";
+						?> 
+					</select>
+					<span class="msg-erro" id="msg-idCongregacao"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="endereco" class="rotulo">Endereço:</label><br>
 					<input type="text" id="endereco" name="endereco" placeholder="Rua, número, complemento" size="50" required 
-					value="<?=$congreg[0]['endereco']?>">
+					value="<?=$memb[0]['endereco']?>">
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="bairro" class="rotulo">Bairro:</label><br>
 					<input type="text" id="bairro" name="bairro" placeholder="Nome do bairro" size="50" required 
-					value="<?=$congreg[0]['bairro']?>">
+					value="<?=$memb[0]['bairro']?>">
 				</div>
 				<br>	
 				<div class="form-item">
 					<label for="cidade" class="rotulo">Cidade:</label><br>
 					<input type="text" id="cidade" name="cidade" placeholder="Nome da cidade" size="50" required 
-					value="<?=$congreg[0]['cidade']?>">
+					value="<?=$memb[0]['cidade']?>">
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="uf" class="rotulo">Estado:</label><br>
-					<select name="uf" id="uf" value="<?=$congreg[0]['uf']?>">
+					<select name="uf" id="uf" value="<?=$memb[0]['uf']?>">
 						<option value="">Selecione o estado</option>
 						<option value="AC">AC</option>
 						<option value="AL">AL</option>
@@ -62,7 +75,7 @@
 						<option value="SP">SP</option>
 						<option value="TO">TO</option>
 						<?php
-						echo "<option value = \"{$congreg[0]['id']}\" selected>{$congreg[0]['uf']}</option>";
+						echo "<option value = \"{$memb[0]['id']}\" selected>{$memb[0]['uf']}</option>";
 						?>
 					</select>
 				</div>
@@ -70,13 +83,13 @@
 				<div class="form-item">
 					<label for="email" class="rotulo">E-mail:</label><br>
 					<input type="email" id="email" name="email" placeholder="fulano@dominio" size="50" required 
-					value="<?=$congreg[0]['email']?>">
+					value="<?=$memb[0]['email']?>">
 				</div>
 				<br>		
 				<div class="form-item">
 					<label for="telefone" class="rotulo">Telefone:</label><br>
 					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50" required 
-					value="<?=$congreg[0]['telefone']?>">
+					value="<?=$memb[0]['telefone']?>">
 				</div>	
 				<br>		    
 				<div class="form-item">
@@ -94,7 +107,7 @@
 				</div>
 				
 				
-				<input type="hidden" name="idCongregacao" value="<?=$congreg[0]['idCongregacao'];?>">
+				<input type="hidden" name="idMembro" value="<?=$memb[0]['idMembro'];?>">
 			</div>		
 			</div>
 		</form>

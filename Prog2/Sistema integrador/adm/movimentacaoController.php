@@ -1,0 +1,94 @@
+<?php include "cabecalhoAdm.php"; ?>
+<?php include "menuLateralAdm.php"; ?>
+<div class="container">
+	<main>
+	<?php
+	require "../classes/Movimentacao.php";
+	require "../includes/functions.php";
+
+	if(isset($_GET['acao'])){
+		switch($_GET['acao']){
+
+			case "cadastro":
+				if(isset($_POST['cadastrar'])){
+					//dados foram submetidos
+					$dados = array();
+					$dados['descricao'] = addslashes($_POST['descricao']);
+					$dados['data'] = $_POST['data'];
+					$dados['idCategoria'] = $_POST['idCategoria'];
+					$dados['tipoMovimentacao'] = $_POST['tipoMovimentacao'];
+					$movimentacao = new Movimentacao();
+					$resultado = $movimentacao->cadastrar($dados);
+					if($resultado){
+						$mensagem = "A movimentação foi cadastrada com sucesso";
+					}
+					else{
+						$mensagem = "Erro. A movimentacao não foi cadastrada<br>";
+						$mensagem .= $movimentacao->erro();
+					}
+					include "views/movimentacaoConfirmacao.php";
+				}
+				break;
+			
+			case "altera":
+				$titulo = "Alteração das informações da Movimentacao";
+				if(isset($_POST['alterar'])){
+					//dados foram submetidos
+					$dados = array();
+					$dados['id'] = $_POST['idMovimentacao'];
+					$dados['descricao'] = addslashes($_POST['descricao']);
+					$dados['data'] = $_POST['data'];
+					$dados['idCategoria'] = $_POST['idCategoria'];
+					$dados['tipoMovimentacao'] = $_POST['tipoMovimentacao'];
+					$congregacao = new Congregacao();
+					$resultado = $congregacao->alterar($dados);
+					if($resultado)
+						$mensagem = "A congregação <strong>{$dados['nome']}</strong> foi alterada com sucesso";
+					else{
+						$mensagem = "Erro. A congregação <strong>{$dados['nome']}</strong> não foi alterada";
+						$mensagem .= $congregacao->erro();
+					}
+					include "views/congregacaoConfirmacao.php";
+				}
+				else{ // carrega dados atuais
+					$congregacao = new Congregacao();
+					$congreg = $congregacao->consultaCongregacao($_GET['id']);
+					include "views/congregacaoAltera.php";
+				}
+				break;
+			case "exclui":
+				$titulo = "Exclusão de Congregação";
+				if(is_numeric($_GET['id'])){
+					$congregacao = new Congregacao();
+					$resultado = $congregacao->excluir($_GET['id']);
+					if($resultado){
+						$mensagem = "Congregação excluída com sucesso";
+					}
+					else{
+						$mensagem = "Erro. A congregação não foi excluída<br>";
+						$mensagem .= $congregacao->erro();
+					}
+					
+				}
+				else{ // nao eh numero
+					$mensagem = "O formato do código do produto é inválido";
+				}
+				include "views/congregacaoConfirmacao.php";
+				break;		
+		}
+	}
+	else {
+		$titulo = "Congregações cadastradas";
+		$congregacao = new Congregacao();
+		if(isset($_GET['campo']) & isset($_GET['ordem']))
+			$lista = $congregacao->listarTodos($_GET['campo'], $_GET['ordem']);
+		else
+			$lista = $congregacao->listarTodos();
+		include "views/congregacaoIndex.php";
+	} 
+	?>
+
+	</main>
+	<br><br><br>
+</div>
+
