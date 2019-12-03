@@ -1,43 +1,42 @@
 <h2><?=$titulo;?></h2>
 <br>
-<p>| <a href="../cad_congregacao.php">
-Cadastrar nova congregação</a> |</p>
+<p>| <a href="../add_movimentacao.php">
+Cadastrar nova movimentação</a> |</p>
 <br>
 <table border="1" style="border-collapse: collapse">
 	<tr>
-		<th>Código <a href="?campo=idCongregacao&ordem=asc">&and;</a>
-		 <a href="?campo=idCongregacao&ordem=desc">&or;</a></th>
-		<th>Nome <a href="?campo=nomeCongregacao&ordem=asc">&and;</a>
-		 <a href="?campo=nomeCongregacao&ordem=desc">&or;</a></th>
-		<th>CNPJ</th>
-		<th>Endereco</th>
-		<th>Bairro</th>
-		<th>Cidade</th>
-		<th>Estado</th>
-		<th>Email</th>
-		<th>Telefone</th>
+		<th>Código <a href="?campo=idMovimentacao&ordem=asc">&and;</a>
+		 <a href="?campo=idMovimentacao&ordem=desc">&or;</a></th>
+		<th>Tipo movimentação <a href="?campo=tipoMovimentacao&ordem=asc">&and;</a>
+		 <a href="?campo=tipoMovimentacao&ordem=desc">&or;</a></th>
+    <th>Data<a href="?campo=data&ordem=asc">&and;</a>
+		 <a href="?campo=data&ordem=desc">&or;</a></th>
+		<th>nomeCategoria</th>
+    <th>Forma de pagamento</th>
+    <th>Parcela</th>
+    <th>Valor</th>
+    <th>Descricao</th>
 		<th>Ação</th>
 	</tr>
 	<?php
 	if(empty($lista)){
-		echo "<tr><td colspan='4'>Nenhuma congregação cadastrada</td></tr>";
+		echo "<tr><td colspan='4'>Nenhuma movimentacao cadastrada</td></tr>";
 	}
 	else{
-		foreach ($lista as $congregacao){
+		foreach ($lista as $movimentacao){
 			?>
 			<tr>
-				<td><?=$congregacao['idCongregacao'];?></td>
-				<td><?=$congregacao['nomeCongregacao'];?></td>
-				<td><?=$congregacao['cnpj'];?></td>
-				<td><?=$congregacao['endereco'];?></td>
-				<td><?=$congregacao['bairro'];?></td>
-				<td><?=$congregacao['cidade'];?></td>
-				<td><?=$congregacao['uf'];?></td>
-				<td><?=$congregacao['email'];?></td>
-				<td><?=$congregacao['telefone'];?></td>
+				<td><?=$movimentacao['idMovimentacao'];?></td>
+				<td><?=$movimentacao['tipoMovimentacao'];?></td>
+				<td><?=$movimentacao['data'];?></td>
+				<td><?=$movimentacao['nomeCategoria'];?></td>
+        <td><?=$movimentacao['formaPagamento'];?></td>
+        <td><?=$movimentacao['parcela'];?></td>
+        <td><?=str_replace(".", ",", number_format($movimentacao['valor'], 2));?></td>
+        <td><?=$movimentacao['descricao'];?></td>
 				<td>
-				<a href="congregacaoController.php?acao=altera&id=<?=$congregacao['idCongregacao'];?>">alterar</a> | 
-				<a href="congregacaoController.php?acao=exclui&id=<?=$congregacao['idCongregacao'];?>" onclick="return confirm('Tem certeza de que deseja excluir esta congregacao?')">excluir</a></td>
+				<a href="movimentacaoController.php?acao=altera&id=<?=$movimentacao['idMovimentacao'];?>">alterar</a> |
+				<a href="movimentacaoController.php?acao=exclui&id=<?=$movimentacao['idMovimentacao'];?>" onclick="return confirm('Tem certeza de que deseja excluir esta congregacao?')">excluir</a></td>
 			</tr>
 			<?php
 		}

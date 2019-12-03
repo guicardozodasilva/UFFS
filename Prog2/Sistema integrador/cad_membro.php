@@ -7,52 +7,52 @@
 			<form action="adm/membroController.php?acao=cadastro" method="post" id="form-cadastro">
 				<div class="form-item">
 					<label for="nome" class="rotulo">Nome:</label><br>
-					<input type="text" id="nome" name="nome" size="50" placeholder="Nome completo">
+					<input type="text" id="nome" name="nome" size="50" placeholder="Nome completo" required autofocus>
 					<span class="msg-erro" id="msg-nome"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="cnpj" class="rotulo">CPF:</label><br>
-					<input type="text" id="cpf" name="cpf" size="20" placeholder="Número do CPF">
+					<input type="text" id="cpf" name="cpf" size="20" placeholder="Número do CPF" required >
 					<span class="msg-erro" id="msg-cpf"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="idCongregacao" class="rotulo">Congregação pertencente:</label><br>
-					<select name="idCongregacao" id="idCongregacao">
+					<select name="idCongregacao" id="idCongregacao" required>
 						<option value="">Selecione a congregação</option>
-						<?php 
+						<?php
 						require "classes/Membro.php";
 						$membro = new Membro();
 						$listaCongreg = $membro->listarCongregacoes();
 						foreach($listaCongreg as $f)
 							echo "<option value = \"{$f['id']}\">{$f['nome']}</option>";
-						?> 
+						?>
 					</select>
 					<span class="msg-erro" id="msg-idCongregacao"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="endereco" class="rotulo">Endereço:</label><br>
-					<input type="text" id="endereco" name="endereco" placeholder="Rua, número, complemento" size="50">
+					<input type="text" id="endereco" name="endereco" placeholder="Rua, número, complemento" size="50" required>
 					<span class="msg-erro" id="msg-endereco"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="bairro" class="rotulo">Bairro:</label><br>
-					<input type="text" id="bairro" name="bairro" placeholder="Nome do bairro" size="50">
+					<input type="text" id="bairro" name="bairro" placeholder="Nome do bairro" size="50" required>
 					<span class="msg-erro" id="msg-bairro"></span>
 				</div>
-				<br>	
+				<br>
 				<div class="form-item">
 					<label for="cidade" class="rotulo">Cidade:</label><br>
-					<input type="text" id="cidade" name="cidade" placeholder="Nome da cidade" size="50">
+					<input type="text" id="cidade" name="cidade" placeholder="Nome da cidade" size="50" required>
 					<span class="msg-erro" id="msg-cidade"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="uf" class="uf">Estado:</label><br>
-					<select name="uf" id="uf">
+					<select name="uf" id="uf" required>
 						<option value="">Selecione o estado</option>
 						<option value="AC">AC</option>
 						<option value="AL">AL</option>
@@ -82,21 +82,21 @@
 						<option value="SP">SP</option>
 						<option value="TO">TO</option>
 					</select>
-					<span class="msg-erro" id="msg-estado"></span>
+					<span class="msg-erro" id="msg-uf"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="email" class="rotulo">E-mail:</label><br>
-					<input type="email" id="email" name="email" placeholder="fulano@dominio" size="50">
+					<input type="email" id="email" name="email" placeholder="fulano@dominio" size="50" required>
 					<span class="msg-erro" id="msg-email"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="telefone" class="rotulo">Telefone:</label><br>
-					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50" required s>
+					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50" required>
 					<span class="msg-erro" id="msg-telefone"></span>
-				</div>	
-				<br>				    
+				</div>
+				<br>
 				<div>
 					<table>
 						<tr>
@@ -109,14 +109,17 @@
 								<div>
 									<a class="button" id="btnEditar" href="adm/membroController.php">Ver membros</a>
 								</div>
-							</td>   
+							</td>
 						</tr>
 					</table>
 				</div>
 				</div>
 			</div>
 		</form>
-	</div>			
+	</div>
 </section>
+<!-- será add futuramente
+<script src="js/cad_membro.js"></script>
+---->
 </body>
 </html>

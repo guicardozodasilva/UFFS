@@ -4,7 +4,8 @@
 		<h2>Cadastrar congregação</h2>
 		<br>
 		<div>
-			<form action="adm/congregacaoController.php?acao=cadastro" method="post" id="form-cadastro">
+      <form action="adm/congregacaoController.php?acao=cadastro" method="post" id="form-cadastro">
+        <input type="hidden" name="acao" value="cadastrar" />
 				<div class="form-item">
 					<label for="nome" class="rotulo">Nome:</label><br>
 					<input type="text" id="nome" name="nome" size="50" placeholder="Nome da congregação" required autofocus>
@@ -13,7 +14,7 @@
 				<br>
 				<div class="form-item">
 					<label for="cnpj" class="rotulo">CNPJ:</label><br>
-					<input type="text" id="cnpj" name="cnpj" size="20" placeholder="Número do CNPJ" required >
+					<input type="text" id="cnpj" name="cnpj" size="14" maxlength="14" placeholder="Número do CNPJ" required >
 					<span class="msg-erro" id="msg-cnpj"></span>
 				</div>
 				<br>
@@ -28,7 +29,7 @@
 					<input type="text" id="bairro" name="bairro" placeholder="Nome do bairro" size="50" required >
 					<span class="msg-erro" id="msg-bairro"></span>
 				</div>
-				<br>	
+				<br>
 				<div class="form-item">
 					<label for="cidade" class="rotulo">Cidade:</label><br>
 					<input type="text" id="cidade" name="cidade" placeholder="Nome da cidade" size="50" required >
@@ -36,8 +37,8 @@
 				</div>
 				<br>
 				<div class="form-item">
-					<label for="estado" class="rotulo">Estado:</label><br>
-					<select name="uf" id="estado">
+					<label for="uf" class="rotulo">Estado:</label><br>
+					<select name="uf" id="uf" required>
 						<option value="">Selecione o estado</option>
 						<option value="AC">AC</option>
 						<option value="AL">AL</option>
@@ -67,40 +68,40 @@
 						<option value="SP">SP</option>
 						<option value="TO">TO</option>
 					</select>
-					<span class="msg-erro" id="msg-estado"></span>
+					<span class="msg-erro" id="msg-uf"></span>
 				</div>
 				<br>
 				<div class="form-item">
 					<label for="email" class="rotulo">E-mail:</label><br>
-					<input type="email" id="email" name="email" placeholder="fulano@dominio" size="50" required >
+					<input type="email" id="email" name="email" placeholder="fulano@dominio" size="50" required>
 					<span class="msg-erro" id="msg-email"></span>
 				</div>
-				<br>		
+				<br>
 				<div class="form-item">
 					<label for="telefone" class="rotulo">Telefone:</label><br>
-					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50" required s>
+					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50" required>
 					<span class="msg-erro" id="msg-telefone"></span>
-				</div>	
-				<br>		    
+				</div>
+				<br>
 				<div>
 					<table>
 						<tr>
 							<td>
 								<div>
-									<input class="button" id="btnGravar" type="submit" value="Confirmar" name="cadastrar">
+									<input class="button" id="btnGravar" type="submit" value="Confirmar">
 								</div>
 							</td>
 							<td>
 								<div>
 									<a class="button" id="btnEditar" href="adm/congregacaoController.php">Ver congregações</a>
 								</div>
-							</td>   
+							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 		</form>
-	</div>		
+	</div>
 </section>
 <script src="js/cad_congregacao.js"></script>
 </body>

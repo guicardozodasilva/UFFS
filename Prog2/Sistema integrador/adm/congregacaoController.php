@@ -4,14 +4,12 @@
 	<main>
 	<?php
 	require "../classes/Congregacao.php";
-	require "../includes/functions.php";
+  require "../includes/functions.php";
 
 	if(isset($_GET['acao'])){
 		switch($_GET['acao']){
-
-			case "cadastro":
-				if(isset($_POST['cadastrar'])){
-					//dados foram submetidos
+      case "cadastro":
+				if(isset($_POST['acao']) && $_POST['acao'] == 'cadastrar') {
 					$dados = array();
 					$dados['nome'] = addslashes($_POST['nome']);
 					$dados['cnpj'] = $_POST['cnpj'];
@@ -20,23 +18,19 @@
 					$dados['cidade'] = $_POST['cidade'];
 					$dados['uf'] = $_POST['uf'];
 					$dados['email'] = $_POST['email'];
-					$dados['telefone'] = $_POST['telefone'];
+          $dados['telefone'] = $_POST['telefone'];
 					$congregacao = new Congregacao();
-					$resultado = $congregacao->cadastrar($dados);
-					if($resultado){
+          $resultado = $congregacao->cadastrar($dados);
+					if ($resultado){
 						$mensagem = "A congregação <strong>".stripslashes($dados['nome'])."</strong> foi cadastrada com sucesso";
-					}
-					else{
+          } else{
 						$mensagem = "Erro. A congregação <strong>{$dados['nome']}</strong> não foi cadastrada<br>";
 						$mensagem .= $congregacao->erro();
 					}
 					include "views/congregacaoConfirmacao.php";
 				}
-				/*else{
-					include "../cad_congregacao.php";
-				}*/
 				break;
-			
+
 			case "altera":
 				$titulo = "Alteração das informações da Congregação";
 				if(isset($_POST['alterar'])){
@@ -79,13 +73,13 @@
 						$mensagem = "Erro. A congregação não foi excluída<br>";
 						$mensagem .= $congregacao->erro();
 					}
-					
+
 				}
 				else{ // nao eh numero
 					$mensagem = "O formato do código do produto é inválido";
 				}
 				include "views/congregacaoConfirmacao.php";
-				break;		
+				break;
 		}
 	}
 	else {
@@ -96,7 +90,7 @@
 		else
 			$lista = $congregacao->listarTodos();
 		include "views/congregacaoIndex.php";
-	} 
+	}
 	?>
 
 	</main>

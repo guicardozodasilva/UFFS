@@ -11,8 +11,8 @@
 
 			case "cadastro":
 				if(isset($_POST['cadastrar'])){
-					//dados foram submetidos
-					$dados = array();
+          //dados foram submetidos
+          $dados = array();
 					$dados['nome'] = addslashes($_POST['nome']);
 					$dados['cpf'] = $_POST['cpf'];
 					$dados['idCongregacao'] = $_POST['idCongregacao'];
@@ -22,22 +22,28 @@
 					$dados['uf'] = $_POST['uf'];
 					$dados['email'] = $_POST['email'];
 					$dados['telefone'] = $_POST['telefone'];
-					$membro = new Membro();
-					$resultado = $membro->cadastrar($dados);
-					if($resultado){
-						$mensagem = "O membro <strong>".stripslashes($dados['nome'])."</strong> foi cadastrado com sucesso";
-					}
-					else{
-						$mensagem = "Erro. O membro <strong>{$dados['nome']}</strong> não foi cadastrado<br>";
-						$mensagem .= $membro->erro();
-					}
-					include "views/membroConfirmacao.php";
+          $membro = new Membro();
+          $verificaCpf = $membro->existeEsseCpf($_POST['cpf']);
+          if($verificaCpf[0]['existe']) {
+            echo "CPF já cadastrado no sistema. Por favor, insira outro.";
+          }
+          else {
+            $resultado = $membro->cadastrar($dados);
+            if($resultado){
+              $mensagem = "O membro <strong>".stripslashes($dados['nome'])."</strong> foi cadastrado com sucesso";
+            }
+            else{
+              $mensagem = "Erro. O membro <strong>{$dados['nome']}</strong> não foi cadastrado<br>";
+              $mensagem .= $membro->erro();
+            }
+            include "views/membroConfirmacao.php";
+          }
 				}
 				/*else{
 					include "../cad_congregacao.php";
 				}*/
 				break;
-			
+
 			case "altera":
 				$titulo = "Alteração das informações do membro";
 				if(isset($_POST['alterar'])){
@@ -81,13 +87,13 @@
 						$mensagem = "Erro. O membro não foi excluído<br>";
 						$mensagem .= $membro->erro();
 					}
-					
+
 				}
 				else{ // nao eh numero
 					$mensagem = "O formato do código do produto é inválido";
 				}
 				include "views/membroConfirmacao.php";
-				break;		
+				break;
 		}
 	}
 	else {
@@ -98,7 +104,7 @@
 		else
 			$lista = $membro->listarTodos();
 		include "views/membroIndex.php";
-	} 
+	}
 	?>
 
 	</main>

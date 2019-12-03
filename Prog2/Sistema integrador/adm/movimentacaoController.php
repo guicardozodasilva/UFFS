@@ -16,7 +16,10 @@
 					$dados['descricao'] = addslashes($_POST['descricao']);
 					$dados['data'] = $_POST['data'];
 					$dados['idCategoria'] = $_POST['idCategoria'];
-					$dados['tipoMovimentacao'] = $_POST['tipoMovimentacao'];
+          $dados['tipoMovimentacao'] = $_POST['tipoMovimentacao'];
+          $dados['valor'] = $_POST['valor'];
+          $dados['formaPagamento'] = $_POST['formaPagamento'];
+          $dados['parcela'] = $_POST['parcela'];
 					$movimentacao = new Movimentacao();
 					$resultado = $movimentacao->cadastrar($dados);
 					if($resultado){
@@ -29,7 +32,7 @@
 					include "views/movimentacaoConfirmacao.php";
 				}
 				break;
-			
+
 			case "altera":
 				$titulo = "Alteração das informações da Movimentacao";
 				if(isset($_POST['alterar'])){
@@ -39,53 +42,56 @@
 					$dados['descricao'] = addslashes($_POST['descricao']);
 					$dados['data'] = $_POST['data'];
 					$dados['idCategoria'] = $_POST['idCategoria'];
-					$dados['tipoMovimentacao'] = $_POST['tipoMovimentacao'];
-					$congregacao = new Congregacao();
-					$resultado = $congregacao->alterar($dados);
+          $dados['tipoMovimentacao'] = $_POST['tipoMovimentacao'];
+          $dados['valor'] = $_POST['valor'];
+          $dados['formaPagamento'] = $_POST['formaPagamento'];
+          $dados['parcela'] = $_POST['parcela'];
+					$movimentacao = new Movimentacao();
+					$resultado = $movimentacao->alterar($dados);
 					if($resultado)
-						$mensagem = "A congregação <strong>{$dados['nome']}</strong> foi alterada com sucesso";
+						$mensagem = "A movimentação foi alterada com sucesso";
 					else{
-						$mensagem = "Erro. A congregação <strong>{$dados['nome']}</strong> não foi alterada";
-						$mensagem .= $congregacao->erro();
+						$mensagem = "Erro. A movimentação <strong>{$dados['nome']}</strong> não foi alterada";
+						$mensagem .= $movimentacao->erro();
 					}
-					include "views/congregacaoConfirmacao.php";
+					include "views/movimentacaoConfirmacao.php";
 				}
 				else{ // carrega dados atuais
-					$congregacao = new Congregacao();
-					$congreg = $congregacao->consultaCongregacao($_GET['id']);
-					include "views/congregacaoAltera.php";
+					$movimentacao = new Movimentacao();
+					$mov = $movimentacao->consultaMovimentacao($_GET['id']);
+					include "views/movimentacaoAltera.php";
 				}
 				break;
 			case "exclui":
-				$titulo = "Exclusão de Congregação";
+				$titulo = "Exclusão de Movimentacao";
 				if(is_numeric($_GET['id'])){
-					$congregacao = new Congregacao();
-					$resultado = $congregacao->excluir($_GET['id']);
+					$movimentacao = new Movimentacao();
+					$resultado = $movimentacao->excluir($_GET['id']);
 					if($resultado){
-						$mensagem = "Congregação excluída com sucesso";
+						$mensagem = "Movimentacao excluída com sucesso";
 					}
 					else{
-						$mensagem = "Erro. A congregação não foi excluída<br>";
-						$mensagem .= $congregacao->erro();
+						$mensagem = "Erro. A movimentacao não foi excluída<br>";
+						$mensagem .= $movimentacao->erro();
 					}
-					
+
 				}
 				else{ // nao eh numero
-					$mensagem = "O formato do código do produto é inválido";
+					$mensagem = "O formato do código da movimentação é inválida";
 				}
-				include "views/congregacaoConfirmacao.php";
-				break;		
+				include "views/movimentacaoConfirmacao.php";
+				break;
 		}
 	}
 	else {
-		$titulo = "Congregações cadastradas";
-		$congregacao = new Congregacao();
+		$titulo = "Movimentacao cadastradas";
+		$movimentacao = new Movimentacao();
 		if(isset($_GET['campo']) & isset($_GET['ordem']))
-			$lista = $congregacao->listarTodos($_GET['campo'], $_GET['ordem']);
+			$lista = $movimentacao->listarTodos($_GET['campo'], $_GET['ordem']);
 		else
-			$lista = $congregacao->listarTodos();
-		include "views/congregacaoIndex.php";
-	} 
+			$lista = $movimentacao->listarTodos();
+		include "views/movimentacaoIndex.php";
+	}
 	?>
 
 	</main>

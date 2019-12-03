@@ -22,12 +22,12 @@
 						<input type="checkbox" id="check3">
 						<label for="check3">Pedidos</label>
 						<ul>
-							<li><a href="add_movimentacao.php">Adicionar movimentacao</a></li>
+							<li><a href="add_movimentacao.php">Adicionar movimentação</a></li>
 							<li><a href="consultar.php">Consultar</a></li>
 							<li><a href="gerar_relatorio.php">Gerar relatório</a></li>
 						</ul>
 				</div>
             </nav>
         </section>
-    </section>	
+    </section>
 	<!-- fim menu lateral -->

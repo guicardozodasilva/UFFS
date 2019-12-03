@@ -1,100 +1,55 @@
 <h2>Alteração informações da Congregação</h2>
 <br>
-			<form action="congregacaoController.php?acao=altera" method="post" id="form-cadastro">
-				<div class="form-item">
-					<label for="nome" class="rotulo">Nome:</label><br>
-					<input type="text" id="nome" name="nome" size="50" placeholder="Nome da congregação" required autofocus
-					value="<?=$congreg[0]['nomeCongregacao']?>">
-				</div>
-				<br>
-				<div class="form-item">
-					<label for="cnpj" class="rotulo">CNPJ:</label><br>
-					<input type="text" id="cnpj" name="cnpj" size="20" placeholder="Número do CNPJ" required value="<?=$congreg[0]['cnpj']?>">
-				</div>
-				<br>
-				<div class="form-item">
-					<label for="endereco" class="rotulo">Endereço:</label><br>
-					<input type="text" id="endereco" name="endereco" placeholder="Rua, número, complemento" size="50" required 
-					value="<?=$congreg[0]['endereco']?>">
-				</div>
-				<br>
-				<div class="form-item">
-					<label for="bairro" class="rotulo">Bairro:</label><br>
-					<input type="text" id="bairro" name="bairro" placeholder="Nome do bairro" size="50" required 
-					value="<?=$congreg[0]['bairro']?>">
-				</div>
-				<br>	
-				<div class="form-item">
-					<label for="cidade" class="rotulo">Cidade:</label><br>
-					<input type="text" id="cidade" name="cidade" placeholder="Nome da cidade" size="50" required 
-					value="<?=$congreg[0]['cidade']?>">
-				</div>
-				<br>
-				<div class="form-item">
-					<label for="uf" class="rotulo">Estado:</label><br>
-					<select name="uf" id="uf" value="<?=$congreg[0]['uf']?>">
-						<option value="">Selecione o estado</option>
-						<option value="AC">AC</option>
-						<option value="AL">AL</option>
-						<option value="AM">AM</option>
-						<option value="AP">AP</option>
-						<option value="BA">BA</option>
-						<option value="CE">CE</option>
-						<option value="DF">DF</option>
-						<option value="ES">ES</option>
-						<option value="GO">GO</option>
-						<option value="MA">MA</option>
-						<option value="MG">MG</option>
-						<option value="MS">MS</option>
-						<option value="MT">MT</option>
-						<option value="PA">PA</option>
-						<option value="PB">PB</option>
-						<option value="PE">PE</option>
-						<option value="PI">PI</option>
-						<option value="PR">PR</option>
-						<option value="RJ">RJ</option>
-						<option value="RN">RN</option>
-						<option value="RS">RS</option>
-						<option value="RO">RO</option>
-						<option value="RR">RR</option>
-						<option value="SC">SC</option>
-						<option value="SE">SE</option>
-						<option value="SP">SP</option>
-						<option value="TO">TO</option>
-						<?php
-						echo "<option value = \"{$congreg[0]['id']}\" selected>{$congreg[0]['uf']}</option>";
-						?>
-					</select>
-				</div>
-				<br>
-				<div class="form-item">
-					<label for="email" class="rotulo">E-mail:</label><br>
-					<input type="email" id="email" name="email" placeholder="fulano@dominio" size="50" required 
-					value="<?=$congreg[0]['email']?>">
-				</div>
-				<br>		
-				<div class="form-item">
-					<label for="telefone" class="rotulo">Telefone:</label><br>
-					<input type="tel" id="telefone" name="telefone" placeholder="(XX)XXXXX-XXXX" size="50" required 
-					value="<?=$congreg[0]['telefone']?>">
-				</div>	
-				<br>		    
-				<div class="form-item">
-				<label class="rotulo"></label>
-				<div>
-					<table>
-						<tr>
-							<td>
-								<div>
-									<input class="button" id="btnGravar" type="submit" value="Alterar" name="alterar">
-								</div>
-							</td>  
-						</tr>
-					</table>
-				</div>
-				
-				
-				<input type="hidden" name="idCongregacao" value="<?=$congreg[0]['idCongregacao'];?>">
-			</div>		
-			</div>
-		</form>
+<form action="movimentacaoController.php?acao=altera" method="post" id="form-cadastro">
+ <div class="form-item">
+   <label for="tipoMovimentacao" class="rotulo">Tipo movimentação::</label><br>
+   <select name="tipoMovimentacao" id="tipoMovimentacao">
+     <option value="EN" <?=$mov[0]['tipoMovimentacao'] === 'EN' ? 'selected' : '' ?>>Entrada</option>
+       <option value="SD" <?=$mov[0]['tipoMovimentacao'] === 'SD' ? 'selected' : '' ?>>Saída</option>
+   </select>
+   <span class="msg-erro" id="msg-idCongregacao"></span>
+  </div>
+  <br>
+<div class="form-item">
+  <label for="formaPagamento" class="rotulo">Tipo movimentação::</label><br>
+  <select name="formaPagamento" id="formaPagamento">
+      <option value="DN" <?=$mov[0]['formaPagamento'] === 'DN' ? 'selected' : '' ?>>Dinheiro</option>
+      <option value="CC" <?=$mov[0]['formaPagamento'] === 'CC' ? 'selected' : '' ?>>Cartão de crédito</option>
+      <option value="CD" <?=$mov[0]['formaPagamento'] === 'CD' ? 'selected' : '' ?>>Cartão de débito</option>
+      <option value="CQ" <?=$mov[0]['formaPagamento'] === 'CQ' ? 'selected' : '' ?>>Cheque</option>
+      <option value="BB" <?=$mov[0]['formaPagamento'] === 'BB' ? 'selected' : '' ?>>Boleto bancário</option>
+      <option value="DB" <?=$mov[0]['formaPagamento'] === 'DB' ? 'selected' : '' ?>>Depósito bancário</option>
+      <option value="OT" <?=$mov[0]['formaPagamento'] === 'OT' ? 'selected' : '' ?>>Outros</option>
+    </select>
+    <span class="msg-erro" id="msg-idCongregacao"></span>
+</div>
+  <br>
+  <div class="form-item">
+    <label for="parcelas" class="rotulo">Total de parcelas:</label><br>
+    <input type="number" id="parcelas" name="parcelas" size="5" value="<?=$mov[0]['parcela']?>">
+    <span class="msg-erro" id="msg-parcelas"></span>
+</div>
+  <br>
+  <div class="form-item">
+  <label for="valor" class="rotulo">Valor:</label><br>
+  <input type="text" id="valor" name="valor" size="15" placeholder="0.00"
+      value="<?=str_replace(".", ",", number_format($mov[0]['valor'], 2));?>">
+  <span class="msg-erro" id="msg-valor"></span>
+</div>
+<br>
+<div>
+  <table>
+    <tr>
+      <td>
+        <div>
+          <input class="button" id="btnGravar" type="submit" value="Alterar" name="alterar">
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div>
+  <input type="hidden" name="idMovimentacao" value="<?=$mov[0]['idMovimentacao'];?>">
+</div>
+</div>
+</form>
