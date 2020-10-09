@@ -1,18 +1,18 @@
 var scene;
 var camera;
 var renderer;
-var cube;
+var sphere;
 var velocidadeCuboX = 0.5;
 var velocidadeCuboY = 0.5;
 
 var criaCubo = function (){
-    var geometria = new THREE.BoxGeometry(10, 10, 10); //responsavel por criar o cubo, eh passado a altura,                                                                 
+    var geometria = new THREE.SphereGeometry(5, 32, 32); //responsavel por criar o cubo, eh passado a altura,                                                                 
                                                        //largura e profundidade como parametro.
     var material = new THREE.MeshBasicMaterial({color: "blue"});     
 
-    cube = new THREE.Mesh(geometria, material);
+    sphere = new THREE.Mesh(geometria, material);
 
-    scene.add(cube);
+    scene.add(sphere);
 };
 
 var render = function (){
@@ -24,18 +24,18 @@ var render = function (){
 }
 
 var animaCubo = function (){
-    if (this.cube.position.x >= 60 || this.cube.position.x <= -60) {
+    if (this.sphere.position.x >= 63 || this.sphere.position.x <= -63) {
         velocidadeCuboX = velocidadeCuboX * -1;
     }
 
-    if (this.cube.position.y >= 30 || this.cube.position.y <= -30) {
+    if (this.sphere.position.y >= 31 || this.sphere.position.y <= -31) {
         velocidadeCuboY = velocidadeCuboY * -1;
     }
 
-    this.cube.position.x+= velocidadeCuboX;
-    this.cube.position.y+= velocidadeCuboY;
+    this.sphere.position.x+= velocidadeCuboX;
+    this.sphere.position.y+= velocidadeCuboY;
 
-    console.log("Posicao Cubo" + this.cube.position.x); 
+    console.log("Posicao Cubo" + this.sphere.position.x); 
 }
 
 var init = function (){
