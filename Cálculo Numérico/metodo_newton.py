@@ -8,7 +8,12 @@ def newton(f, f_linha, x0, erro, max_iteracao = 50):
 
     while k <= max_iteracao:
         x1 = x0 - f(x0) / f_linha(x0)
-        print("%d\t%e\t%e"%(k, x1, f(x1)))
+        #print("%d\t%e\t%e"%(k, x1, f(x1)))
+        print("xn->", x0)
+        print("f(x)-> ", f(x0))
+        print("f'(x)-> ", f_linha(x0))
+        print("xn+1->", x1)
+        print("")
 
         if abs(f(x1)) <= erro:
                 return x1
@@ -26,7 +31,7 @@ if __name__ == "__main__":
     def f_linha(x):
         return -2*x + 3.15122
 
-raiz = newton(f, f_linha, 8, 0.001)
+raiz = newton(f, f_linha,  6, 0.001)
 
 print(raiz)
 
