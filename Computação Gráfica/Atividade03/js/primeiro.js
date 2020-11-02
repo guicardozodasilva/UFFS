@@ -5,7 +5,7 @@ var renderer;
 var velocity = 0.1;
 
 
-var createACube = function() {
+var createBracoRobotico = function() {
     var geometry = new THREE.BoxGeometry( 2, 10, 2 );
 
     red = new THREE.Color(1, 0, 0);
@@ -20,22 +20,43 @@ var createACube = function() {
         geometry.faces[4 * i+3].color = colors[i];
 
     }
+
     var material = new THREE.MeshBasicMaterial( { color: 0xffffff, vertexColors: true } );
-    cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
+
+    // criacao do braco robotico
+    bracoRobotico = new THREE.Mesh( geometry, material );
+    scene.add(bracoRobotico);
+
+    // criacao do antebraco robotico
+    antebracoRobotico = new THREE.Mesh( geometry, material );
+    scene.add(antebracoRobotico);
 
     var geometry2 = new THREE.SphereGeometry(2, 32,32);
     var material2 = new THREE.MeshBasicMaterial( { color: 0xffffff} );
-    sphere = new THREE.Mesh(geometry2, material2);
-    sphere.position.y-=5;
-    cube.add(sphere);
+    
+    // criacao do ombro robotico
+    ombroRobotico = new THREE.Mesh(geometry2, material2);
+    ombroRobotico.position.y-=5;
+    bracoRobotico.add(ombroRobotico);
 
-    pivot = new THREE.Group();
-    pivot.position.set(0,0,0);
-    pivot.add(cube);
+    // criacao do cotovelo robotico
+    cotoveloRobotico = new THREE.Mesh(geometry2, material2);
+    cotoveloRobotico.position.y-=5;
+    antebracoRobotico.add(cotoveloRobotico);
 
-    scene.add(pivot);
-    cube.position.y+=pivot.position.x+5;
+    // criacao do pivo do ombro robotico
+    pivotOmbroRobotico = new THREE.Group();
+    pivotOmbroRobotico.position.set(0,0,0);
+    pivotOmbroRobotico.add(bracoRobotico);
+    scene.add(pivotOmbroRobotico);
+    bracoRobotico.position.y+=pivotOmbroRobotico.position.x+5;
+
+    // criacao do pivo do cotovelo robotico
+    pivotCotoveloRobotico = new THREE.Group();
+    pivotCotoveloRobotico.position.set(0,0,0);
+    pivotCotoveloRobotico.add(antebracoRobotico);
+    scene.add(pivotCotoveloRobotico);
+    antebracoRobotico.position.y+=pivotCotoveloRobotico.position.x+5;
 
 };
 
@@ -48,7 +69,7 @@ var init = function() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    this.createACube();
+    this.createBracoRobotico();
 
     camera.position.z = 100;
 
@@ -74,7 +95,7 @@ var rotationVelocity = 0.1;
 var onKeyDown = function(e){
     console.log(e.keyCode);
     if(e.keyCode == 37){
-        cube.position.x-=velocity;
+        bracoRobotico.position.x-=velocity;
     }
     if (e.keyCode == 32){ //espaço -> rotação pelo pivo.
         
@@ -86,14 +107,14 @@ var onKeyDown = function(e){
        // pivo.rotation.y+=0.1;
     }
     if (e.keyCode == 187){ // +
-        cube.scale.x+=0.1;
-        cube.scale.y+=0.1;
-        cube.scale.z+=0.1;
+        bracoRobotico.scale.x+=0.1;
+        bracoRobotico.scale.y+=0.1;
+        bracoRobotico.scale.z+=0.1;
     }
     if (e.keyCode == 189){ // -
-        cube.scale.x-=0.1;
-        cube.scale.y-=0.1;
-        cube.scale.z-=0.1;
+        bracoRobotico.scale.x-=0.1;
+        bracoRobotico.scale.y-=0.1;
+        bracoRobotico.scale.z-=0.1;
     }
 }
 
@@ -128,8 +149,8 @@ var onMouseMouse = function (e){
         //cube.position.x += deltaMovimento.x*0.01;
         //cube.position.y += deltaMovimento.y*0.01*-1;
 
-        cube.rotation.x += toRadians(deltaMovimento.y*1)*0.5;
-        cube.rotation.y += toRadians(deltaMovimento.x*1)*0.5;
+        bracoRobotico.rotation.x += toRadians(deltaMovimento.y*1)*0.5;
+        bracoRobotico.rotation.y += toRadians(deltaMovimento.x*1)*0.5;
     }
 
     posicaoMouser = {  //nova posição do mouser
