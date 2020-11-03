@@ -1,7 +1,8 @@
 var scene;
 var camera;
 var renderer;
-
+var cotoveloRobotico_movimento = true;
+var cotoveloRobotico_desligado = 0;
 var velocity = 0.1;
 
 
@@ -45,18 +46,20 @@ var createBracoRobotico = function() {
     antebracoRobotico.add(cotoveloRobotico);
 
     // criacao do pivo do ombro robotico
-    pivotOmbroRobotico = new THREE.Group();
-    pivotOmbroRobotico.position.set(0,0,0);
-    pivotOmbroRobotico.add(bracoRobotico);
-    scene.add(pivotOmbroRobotico);
-    bracoRobotico.position.y+=pivotOmbroRobotico.position.x+5;
-
+    ombroRobotico_pivo = new THREE.Group();
+    ombroRobotico_pivo.position.set(0,0,0);
+    ombroRobotico_pivo.add(bracoRobotico);
+    
     // criacao do pivo do cotovelo robotico
-    pivotCotoveloRobotico = new THREE.Group();
-    pivotCotoveloRobotico.position.set(0,0,0);
-    pivotCotoveloRobotico.add(antebracoRobotico);
-    scene.add(pivotCotoveloRobotico);
-    antebracoRobotico.position.y+=pivotCotoveloRobotico.position.x+5;
+    cotoveloRobotico_pivo = new THREE.Group();
+    cotoveloRobotico_pivo.position.set(0,10,0);
+    cotoveloRobotico_pivo.add(antebracoRobotico);
+
+    ombroRobotico_pivo.add(cotoveloRobotico_pivo)
+    scene.add(ombroRobotico_pivo);
+
+    bracoRobotico.position.y+=ombroRobotico_pivo.position.x+5;
+    antebracoRobotico.position.y+=cotoveloRobotico_pivo.position.x+5;
 
 };
 
@@ -75,54 +78,47 @@ var init = function() {
 
     render();
 
-    document.addEventListener('keydown', onKeyDown ); 
-
-    document.addEventListener('mousedown', onMouseDown ); //metodos de controle do mouser
-    document.addEventListener('mouseup', onMouseUp ); 
-    document.addEventListener('mousemove', onMouseMouse ); 
+    document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('keydown', onKeyDown);  
+    document.addEventListener('mousedown', onMouseDown); //metodos de controle do mouser
+    document.addEventListener('mouseup', onMouseUp); 
+    document.addEventListener('mousemove', onMouseMouse); 
   
 };
 
-var ci = 0
 var render = function() {
     requestAnimationFrame( render );
+
+    if (cotoveloRobotico_desligado >= 0 && cotoveloRobotico_movimento) {
+        cotoveloRobotico_pivo.rotation.z = cotoveloRobotico_pivo.rotation.z - toRadians(2.5)*0.5;
+        cotoveloRobotico_desligado = cotoveloRobotico_desligado - 2.5;
+    }
 
     renderer.render( scene, camera );
 };
 
 var rotationVelocity = 0.1;
 
-var onKeyDown = function(e){
-    console.log(e.keyCode);
-    if(e.keyCode == 37){
-        bracoRobotico.position.x-=velocity;
+var onKeyUp = function(e){
+
+    if (e.keyCode == 32) {
+        cotoveloRobotico_movimento = true;
     }
-    if (e.keyCode == 32){ //espaço -> rotação pelo pivo.
-        
-        console.log("Z: "+ pivot.rotation.z);
-        if (pivot.rotation.z > 1.7 || pivot.rotation.z < -1){
-            rotationVelocity*=-1;
-        }
-        pivot.rotation.z+=rotationVelocity; 
-       // pivo.rotation.y+=0.1;
-    }
-    if (e.keyCode == 187){ // +
-        bracoRobotico.scale.x+=0.1;
-        bracoRobotico.scale.y+=0.1;
-        bracoRobotico.scale.z+=0.1;
-    }
-    if (e.keyCode == 189){ // -
-        bracoRobotico.scale.x-=0.1;
-        bracoRobotico.scale.y-=0.1;
-        bracoRobotico.scale.z-=0.1;
-    }
+
 }
 
+var onKeyDown = function(e){
+    console.log(e.keyCode);
 
-var posicaoMouser = { //controla a posição do mouser
-    x: 0,
-    y: 0
-};
+    if (e.keyCode == 32){ //espaço -> rotação pelo pivo.
+        if (cotoveloRobotico_desligado <= 500) {
+            cotoveloRobotico_pivo.rotation.z = cotoveloRobotico_pivo.rotation.z + toRadians(2.5)*0.5;
+            cotoveloRobotico_desligado = cotoveloRobotico_desligado + 10;
+        }
+        cotoveloRobotico_movimento = false;
+    }
+    
+}
 
 var cliquePressionado = false; //para controlar o tempo que o cara esta pressionando o botao do mouser
 
@@ -137,8 +133,18 @@ var onMouseUp = function(e){
   //  console.log("SOltou o clique");
 }
 
+var posicaoAtual = { //controla a posição atual
+    x: 0,
+    y: 0
+};
+
+var posicaoMouser = { //controla a posição do mouser
+    x: 0,
+    y: 0
+};
 
 var onMouseMouse = function (e){
+    
     if (cliquePressionado){
 
         var deltaMovimento = {
@@ -146,17 +152,30 @@ var onMouseMouse = function (e){
             y: e.offsetY - posicaoMouser.y,
         }
 
-        //cube.position.x += deltaMovimento.x*0.01;
-        //cube.position.y += deltaMovimento.y*0.01*-1;
+        if (posicaoAtual.y + deltaMovimento.x <= 100 && posicaoAtual.y + deltaMovimento.x >= (-100)) {
+            ombroRobotico_pivo.rotation.y += toRadians(deltaMovimento.x)*0.5;
+            if (deltaMovimento.x <= 0) 
+                posicaoAtual.y = Math.min(posicaoAtual.y + deltaMovimento.x, -100);
+            else 
+                posicaoAtual.y = Math.max(posicaoAtual.y + deltaMovimento.x, 100)
+        }
 
-        bracoRobotico.rotation.x += toRadians(deltaMovimento.y*1)*0.5;
-        bracoRobotico.rotation.y += toRadians(deltaMovimento.x*1)*0.5;
+        if (posicaoAtual.x+deltaMovimento.y <= 200 && posicaoAtual.x+deltaMovimento.y >= (-200)) {
+            ombroRobotico_pivo.rotation.x += toRadians(deltaMovimento.y)*0.5;
+            
+            if (deltaMovimento.y <= 0) 
+                posicaoAtual.x = Math.min(posicaoAtual.x + deltaMovimento.y, -200);
+            else 
+                posicaoAtual.x = Math.max(posicaoAtual.x + deltaMovimento.y, 200)
+        }
+
     }
 
     posicaoMouser = {  //nova posição do mouser
         x : e.offsetX,
         y : e.offsetY
     };
+    
 }
 
 window.onload = this.init;
