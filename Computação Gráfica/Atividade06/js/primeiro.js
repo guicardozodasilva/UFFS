@@ -103,9 +103,11 @@ var criaGround = function (){
 
 var loadObj = function(){
     objLoader = new THREE.OBJLoader();
+    fbxLoader = new THREE.FBXLoader();
+    textureLoader = new THREE.TextureLoader();
  
-    objLoader.load(
-        'assets/Sheep.obj', //arquivo que vamos carregar
+    fbxLoader.load(
+        'assets/models/Sheep.obj', //arquivo que vamos carregar
         function(object){
             ovelha = object;
 
@@ -133,8 +135,8 @@ var loadObj = function(){
         } //metodo deu merda
     );
 
-    objLoader.load(
-        'assets/Pitbull.obj', //arquivo que vamos carregar
+    fbxLoader.load(
+        'assets/models/Pitbull.obj', //arquivo que vamos carregar
         function(object){
             pitbull = object;
 
@@ -162,8 +164,8 @@ var loadObj = function(){
         } //metodo deu merda
     );
 
-    objLoader.load(
-        'assets/Elephant.obj', //arquivo que vamos carregar
+    fbxLoader.load(
+        'assets/models/Elephant.obj', //arquivo que vamos carregar
         function(object){
             elefante = object;
 
@@ -192,8 +194,8 @@ var loadObj = function(){
         } //metodo deu merda
     );
 
-    objLoader.load(
-        'assets/Cow.obj', //arquivo que vamos carregar
+    fbxLoader.load(
+        'assets/models/Cow.obj', //arquivo que vamos carregar
         function(object){
             vaca = object;
 
@@ -221,8 +223,8 @@ var loadObj = function(){
         } //metodo deu merda
     );
 
-    objLoader.load(
-        'assets/Pterodactyl.obj', //arquivo que vamos carregar
+    fbxLoader.load(
+        'assets/models/Pterodactyl.obj', //arquivo que vamos carregar
         function(object){
             pterodactil = object;
 
