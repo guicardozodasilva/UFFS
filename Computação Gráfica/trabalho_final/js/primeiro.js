@@ -10,7 +10,10 @@ var objLoader;
 var fbxLoader;
 var textureLoader;
 
+//iluminação
 var spotLight;
+var ambientLight;
+var directionalLight;
 
 var girafa;
 var panda;
@@ -100,25 +103,26 @@ var guiFunction = function(){
 var criaGround = function (){
 
     textureLoader = new THREE.TextureLoader();
-    
     groundTexture = textureLoader.load('assets/textura/terrain/grasslight-big.jpg');
+
+    material = new THREE.MeshStandardMaterial({map : groundTexture});
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
     groundTexture.repeat.set( 20, 20 );
-    groundTexture.anisotropy = 16;
     groundTexture.encoding = THREE.sRGBEncoding;
-    material = new THREE.MeshBasicMaterial({map : groundTexture});
-    
+    groundTexture.anisotropy = 16;
     material.normalMap =  textureLoader.load('assets/textura/terrain/grasslight-big-nm.jpg');
-
+    
+    
     ground = new  THREE.Mesh(
-        new THREE.PlaneGeometry(1050, 1050, 25,25),
+        new THREE.PlaneBufferGeometry(1050, 1050, 25),
         material
     );
-
+    ground.receiveShadow = true;    
     ground.rotation.x -= Math.PI / 2;
     ground.position.y=-2;
 
     scene.add(ground);
+
 };
 
 var loadObj = function(){
@@ -440,53 +444,87 @@ var loadObj = function(){
 
 }
 
+var iluminacaoDirectional = function(){
+    //corPixel = corPixel * corLuzDirecional * intensidade * tetha ... (integração das cores do ambeinte).
+
+    directionalLight = new THREE.DirectionalLight(0xffffff, 1, 1000);
+    directionalLight.position.y = 250;
+    directionalLight.castShadow = true;
+
+    directionalLight.shadow.mapSize.width = 4096;
+    directionalLight.shadow.mapSize.height = 4096;
+    directionalLight.shadow.camera.left = 1000;
+    directionalLight.shadow.camera.bottom = 1000;
+    directionalLight.shadow.camera.right = -1000
+    directionalLight.shadow.camera.top = -1000;
+
+    directionalLight.target = ground;
+
+    scene.add(directionalLight);
+    scene.add(directionalLight.target);
+
+    scene.add(new THREE.DirectionalLightHelper(directionalLight));
+
+}
+
+
+var iluminacaoSpot = function(){
+    //corPixel = corPixel * corLuzDirecional * intensidade * tetha ... (integração das cores do ambeinte).
+
+    spotLight = new THREE.SpotLight(0xffffff, 1);
+    spotLight.angle = 0.5;
+    spotLight.position.y = 25;
+    spotLight.position.z = 60;
+    spotLight.castShadow = true;
+
+    spotLight.shadow.distance = 30;
+    spotLight.shadow.penumbra = 30;
+    spotLight.shadow.angle = 25;
+        
+
+    spotLight.target.position.set(5,20,0);
+
+    scene.add(spotLight);
+
+    spotLight.intensity = 0;
+
+
+    helperSpot = new THREE.SpotLightHelper(spotLight);
+    scene.add(helperSpot);
+
+}
+
 var init = function() {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xcce0ff );
-
     camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 180 );
-
-    renderer = new THREE.WebGLRenderer();
     
+    renderer = new THREE.WebGLRenderer({antialias: true});
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
   
-
-    //createACube();
-
-    loadObj();
-
-    camera.position.z = 100;
-    camera.position.y = 30;
-
-
-    //Iluminação 
-    //Não se preocupe com essa parte por enquanto, apenas usem :)
-    spotLight = new THREE.SpotLight( 0xffffff );
-    scene.add(spotLight);
-    spotLight.position.set( 100, 100, 100 );
-    spotLight.castShadow = true;
-    spotLight.shadow.mapSize.width = 100;
-    spotLight.shadow.mapSize.height = 100;
-    spotLight.shadow.camera.near = 1;
-    spotLight.shadow.camera.far = 99;
-    spotLight.shadow.camera.fov = 40;
-
-    renderer.shadowMap.enable = true;
-    renderer.shadowMap.type = THREE.BasicShadowMap;
-
-
-    
-    scene.add(new THREE.AmbientLight( 0xffffff ));
-
 
     criaGround();
 
     guiFunction();
 
+    loadObj();
+
+    iluminacaoDirectional();
+
+    scene.fog = new THREE.Fog( 0xcce0ff, 200, 500 );
+   
+    ambientLight = new THREE.AmbientLight( 0x888888 );
+    ambientLight.intensity = 1;
+
+    scene.add(ambientLight);
+
+    camera.position.z = 100;
+    camera.position.y = 20;
+
     render();
-  
+
 };
 
 var ci = 0
