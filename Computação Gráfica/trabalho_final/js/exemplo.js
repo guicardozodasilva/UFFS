@@ -304,87 +304,36 @@ var loadObj = function(){
 
     } );
 
+    fbxLoader.load(
+        'assets/models/Apartament.fbx', //arquivo que vamos carregar
+        function(object){
+            ap = object;
 
-    
-    
+            object.traverse( function ( child ) {
+                        if ( child instanceof THREE.Mesh ) {
+                            console.log(child);
+                            child.material.map = textureLoader.load("assets/textura/Apartment.jpg");
+                            child.material.shininess = 0;
+                        }
+                    });
 
-            
+            ap.scale.x = 10;
+            ap.scale.y = 10;
+            ap.scale.z = 10;
+            ap.position.z = -3;
+            ap.position.x = -50;
+            ap.position.y = 0;
+            ap.castShadow = true;
+            scene.add(ap); 
 
-
-    //         fbxLoader.load(
-    //             'assets/models/char-model/animations/idle.fbx', //arquivo que vamos carregar
-    //             function(object){
-                                        
-    //                 mixer = new THREE.AnimationMixer(object);
-    //                 let animationAction = mixer.clipAction((object).animations[0]);
-    //                 animationActions.push(animationAction);
-    //                 animationsFolder.add(animations, "default");
-                    
-                      
-                
-    //                 fbxLoader.load(
-    //                     'assets/models/char-model/animations/run.fbx', //arquivo que vamos carregar
-    //                     function(object){
-    //                         let animationAction = mixer.clipAction((object).animations[0]);
-    //                         animationActions.push(animationAction)         
-    //                         animationsFolder.add(animations, "run")
-                        
-                
-                
-    //                         fbxLoader.load(
-    //                             'assets/models/char-model/animations/jump.fbx', //arquivo que vamos carregar
-    //                             function(object){
-                                                   
-    //                                 let animationAction = mixer.clipAction((object).animations[0]);
-    //                                 animationActions.push(animationAction)         
-    //                                 animationsFolder.add(animations, "jump")
-    //                                 activeAction = animationAction;
-    //                                 console.log(activeAction)
-                        
-                        
-    //                                 modelReady = true; 
-        
-    //                             },//metodo, tudo deu certo
-    //                             function( andamento) {
-    //                                 console.log((andamento.loaded / andamento.total *100) + "% pronto!");
-    //                             },//metodo executa enquanto carrega
-    //                             function (error){
-    //                                 console.log("Deu caca: " + error);
-    //                             } //metodo deu merda
-    //                         );   
-
-    //                     },//metodo, tudo deu certo
-    //                     function( andamento) {
-    //                         console.log((andamento.loaded / andamento.total *100) + "% pronto!");
-    //                     },//metodo executa enquanto carrega
-    //                     function (error){
-    //                         console.log("Deu caca: " + error);
-    //                     } //metodo deu merda
-    //                 );   
-        
-        
-    //                // camera.lookAt(objCarregado.position)
-        
-    //             },//metodo, tudo deu certo
-    //             function( andamento) {
-    //                 console.log((andamento.loaded / andamento.total *100) + "% pronto!");
-    //             },//metodo executa enquanto carrega
-    //             function (error){
-    //                 console.log("Deu caca: " + error);
-    //             } //metodo deu merda
-    //         );        
-
-
-
-    //         modelReady = true;    
-    //     },//metodo, tudo deu certo
-    //     function( andamento) {
-    //         console.log((andamento.loaded / andamento.total *100) + "% pronto!");
-    //     },//metodo executa enquanto carrega
-    //     function (error){
-    //         console.log("Deu caca: " + error);
-    //     } //metodo deu merda
-    // );
+        },//metodo, tudo deu certo
+        function( andamento) {
+            console.log((andamento.loaded / andamento.total *100) + "% pronto!");
+        },//metodo executa enquanto carrega
+        function (error){
+            console.log("Deu caca: " + error);
+        } //metodo deu merda
+    );
 
 }
 
@@ -463,6 +412,7 @@ var init = function() {
     //renderer.shadowMap.type = THREE.PCFShadowMap;
     document.body.appendChild(renderer.domElement);
 
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
 
     // camControls = new THREE.FirstPersonControls(camera);
     // camControls.lookSpeed = 0.08;
@@ -503,7 +453,6 @@ var init = function() {
     camera.position.z = 100;
     camera.position.y = 20;
 
-
     render();
     
     
@@ -530,11 +479,19 @@ var render = function() {
 
     if (caminhandoF){ //andando para frente
         objCarregado[0].position.z += (ataque ? 0.1 : (correr ? 0.8 : 0.3) )*directionObject[0].z;
-        camera.position.z += (ataque ? 0.1 : (correr ? 0.8 : 0.3) )*directionObject[0].z;
+        // camera.position.z += (ataque ? 0.1 : (correr ? 0.8 : 0.3) )*directionObject[0].z;
 
     }else if (caminhandoA) { //andando para traz
         objCarregado[0].position.z -= 0.2*directionObject[0].x*directionObject[0].z;
-        camera.position.z -= 0.2*directionObject[0].x*directionObject[0].z;
+        // camera.position.z -= 0.2*directionObject[0].x*directionObject[0].z;
+    }
+    else if (caminhandoE) { //andando para traz
+        objCarregado[0].position.x += 0.2*directionObject[0].x*directionObject[0].z;
+        // camera.position.x += 0.2*directionObject[0].x*directionObject[0].z;
+    }
+    else if (caminhandoD) { //andando para traz
+        objCarregado[0].position.x -= 0.2*directionObject[0].x*directionObject[0].z;
+        // camera.position.x -= 0.2*directionObject[0].x*directionObject[0].z;
     }
 
    // camControls.update(delta);
@@ -557,7 +514,9 @@ var render = function() {
 
      if (loadFinished) //translada a o box do meu elemento
         boudingBox[0].setFromObject(objCarregado[0].children[0]);
-    
+
+
+    controls.update();    
     
     renderer.render( scene, camera );
 };
@@ -566,19 +525,29 @@ var rotationVelocity = 0.1;
 var luz = false;
 var caminhandoF = false;
 var caminhandoA = false;
+var caminhandoE = false;
+var caminhandoD = false;
 var correr = false;
 
 var apertando = false;
 
 var onKeyUp = function(e){
     console.log("parou de apertar "+ e.keyCode);
-    if (e.keyCode == 38){
+    if (e.keyCode == 87){ //tecla W
         setAction(animationActions[2]);    
         caminhandoF = false;
     }
-    if (e.keyCode == 40){
+    if (e.keyCode == 83){ //tecla S
         setAction(animationActions[2]);
         caminhandoA = false;
+    }
+    if (e.keyCode == 65){ //tecla A
+        setAction(animationActions[2]);
+        caminhandoE = false;
+    }
+    if (e.keyCode == 68){//tecla D
+        setAction(animationActions[2]);
+        caminhandoD = false;
     }
 }
 
@@ -588,11 +557,12 @@ var onKeyDown = function(e){
         correr = !correr;
     }
 
-    if(e.keyCode == 65){ //tecla C
-        ataque = !ataque;
-        console.log("ataque: "+ ataque);
-    }
-    if(e.keyCode == 38){
+    // if(e.keyCode == 65){ //tecla A
+    //     ataque = !ataque;
+    //     console.log("ataque: "+ ataque);
+    // }
+
+    if(e.keyCode == 87){ //tecla W
         
         if (ataque)
             setAction(animationActions[5]);
@@ -604,22 +574,17 @@ var onKeyDown = function(e){
         
         caminhandoF = true;
     }
-    if(e.keyCode == 37){
-        objCarregado[0].position.x-=0.5;
-        //camera.rotation.y+=0.1;
-    }
-    if(e.keyCode == 39){
-        objCarregado[0].position.x+=0.5;
-       // objCarregado[0].rotation.y-=0.1;
-       // camera.rotation.y-=0.1;
-    }
-    if(e.keyCode == 40){
-        //animationActions[1].timeScale = -1;
-        //animationActions[1].setLoop(THREE.LoopOnce);
+    if(e.keyCode == 83){ //tecla S
         setAction(animationActions[1]);
-
         caminhandoA = true;
     }
+    if(e.keyCode == 65){ //tecla A
+        caminhandoE = true;
+    }
+    if(e.keyCode == 68){ //tecla D
+       caminhandoD = true;
+    }
+
     if (e.keyCode == 32){ //espaço -> rotação pelo pivo.
        
         if (objCarregado[0].rotation.y == 0){
