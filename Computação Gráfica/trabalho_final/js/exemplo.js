@@ -149,14 +149,14 @@ var guiFunction = function(){
 var criaGround = function (){
 
     textureLoader = new THREE.TextureLoader();
-    groundTexture = textureLoader.load('assets/textura/terrain/grasslight-big.jpg');
+    groundTexture = textureLoader.load('assets/textura/City_Base.png');
 
     material = new THREE.MeshStandardMaterial({map : groundTexture});
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-    groundTexture.repeat.set( 20, 20 );
+    groundTexture.repeat.set( 1, 1 );
     groundTexture.encoding = THREE.sRGBEncoding;
     groundTexture.anisotropy = 16;
-    material.normalMap =  textureLoader.load('assets/textura/terrain/grasslight-big-nm.jpg');
+    material.normalMap =  textureLoader.load('assets/textura/City_Base.png');
     
     
     ground = new  THREE.Mesh(
@@ -168,6 +168,7 @@ var criaGround = function (){
     ground.position.y=-2;
 
     scene.add(ground);
+
 };
 
 var loadObj = function(){
@@ -283,6 +284,7 @@ var loadObj = function(){
 
        object.rotation.y =  Math.PI;
         object.position.y = -2;
+        object.position.x = 200;
 
         directionObject.push(new THREE.Vector3(1,1,-1));
 
@@ -317,11 +319,11 @@ var loadObj = function(){
                         }
                     });
 
-            ap.scale.x = 10;
-            ap.scale.y = 10;
-            ap.scale.z = 10;
-            ap.position.z = -3;
-            ap.position.x = -50;
+            ap.scale.x = 30;
+            ap.scale.y = 30;
+            ap.scale.z = 30;
+            ap.position.z = -150;
+            ap.position.x = 50;
             ap.position.y = 0;
             ap.castShadow = true;
             scene.add(ap); 
@@ -452,6 +454,7 @@ var init = function() {
 
     camera.position.z = 100;
     camera.position.y = 20;
+    camera.position.x = 300;
 
     render();
     
