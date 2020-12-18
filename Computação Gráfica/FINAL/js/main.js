@@ -16,6 +16,67 @@ var directionalLight;
 
 var objCarregado = [];
 
+var guiFunction = function(){
+    const gui = new dat.GUI();
+
+    var parametroQualquer;
+
+    param = {
+        campoTexto: "Teste Texturas",
+        escalaA: 1,
+        escalaD: 1,
+        cor: "#000000",
+        corD: "#000000",
+        x:0,
+        y:0,
+        z:0
+    };    
+
+    gui.add(param, 'campoTexto').name("nome obj");
+    
+    var pastaAmb = gui.addFolder("Luz Ambiente");
+    var scalep = pastaAmb.add(param, 'escalaA').min(0.1).max(5).step(0.1).name("Luz Ambiente");
+    scalep.onChange(function (parametroQualquer){
+        ambientLight.intensity = parametroQualquer;
+    });
+    var colore = pastaAmb.addColor(param, 'cor').name("Cor Obj");
+    colore.onChange(function (parametroQualquer){
+        ambientLight.color.setHex(parametroQualquer.replace("#", "0x"));
+    });
+
+
+    var pastaDir = gui.addFolder("Luz Direcional");
+    var scalep = pastaDir.add(param, 'escalaD').min(0).max(5).step(0.1).name("Luz Direc");
+    scalep.onChange(function (parametroQualquer){
+        ambientLight.intensity = parametroQualquer;
+    });
+    var colore = pastaDir.addColor(param, 'corD').name("Cor Directional");
+    colore.onChange(function (parametroQualquer){
+        ambientLight.color.setHex(parametroQualquer.replace("#", "0x"));
+    });
+
+
+    var pastaPosicao = gui.addFolder("Posicao");
+
+    var posX = pastaPosicao.add(param, 'x').min(-30).max(30).step(1).name("x");
+    posX.onChange(function (parametroQualquer){
+        directionalLight.position.x = parametroQualquer;
+    });
+
+    var posY = pastaPosicao.add(param, 'y').min(-30).max(30).step(1).name("y");
+    posY.onChange(function (parametroQualquer){
+        directionalLight.position.y = parametroQualquer;
+    });
+
+    var posZ = pastaPosicao.add(param, 'z').min(-30).max(30).step(1).name("z");
+    posZ.onChange(function (parametroQualquer){
+        objCardirectionalLightregado.position.z = parametroQualquer;
+    });
+    
+    gui.open();
+   
+};
+
 var criaGround = function (){
 
     var materialArray = [];
@@ -39,14 +100,20 @@ var criaGround = function (){
     skybox = new THREE.Mesh( skyboxGeo, materialArray );
     scene.add( skybox );
     
+    textureLoader = new THREE.TextureLoader();
+    planeTexture = textureLoader.load('assets/texture/palco_festa/Tiles074_2K_Color.jpg');
+    
+    material = new THREE.MeshStandardMaterial({map : planeTexture});
+    material.normalMap =  textureLoader.load('assets/texture/palco_festa/Tiles074_2K_Normal.jpg');
+    
     plane = new THREE.Mesh(
         new THREE.PlaneGeometry(100, 100, 10, 10),
-        new THREE.MeshStandardMaterial({
-            color: 0x808080,
-          }));
+        material
+    );
     plane.castShadow = false;
     plane.receiveShadow = true;
     plane.rotation.x = -Math.PI / 2;
+
     scene.add(plane);
 
 }
@@ -125,6 +192,8 @@ var init = function() {
     controls.addEventListener('change', renderer);
 
     criaGround();
+
+    guiFunction();
 
     loadObj();
 
