@@ -4,7 +4,6 @@ var renderer;
 var controls;
 
 var skybox;
-var plane;
 
 var objLoader;
 var textureLoader;
@@ -14,7 +13,17 @@ var spotLight;
 var ambientLight;
 var directionalLight;
 
+var mixer;//mixer: THREE.AnimationMixer;
+var modelReady = false;
+var animationActions = Array();
+var activeAction = THREE.AnimationAction;
+var lastAction = THREE.AnimationAction;
+
 var objCarregado = [];
+var directionObject = [];
+var animationsFolder;
+
+var clock = new THREE.Clock();
 
 var guiFunction = function(){
     const gui = new dat.GUI();
@@ -29,7 +38,26 @@ var guiFunction = function(){
         corD: "#000000",
         x:0,
         y:0,
-        z:0
+        z:0,
+        default: function () {
+            setAction(animationActions[0])
+        },
+        samba: function () {
+            setAction(animationActions[1])
+        },
+        bellydancing: function () {
+            setAction(animationActions[2])
+        },
+        goofy_running: function () {
+            setAction(animationActions[3])
+        },
+        look_around: function () {
+            setAction(animationActions[4])
+        },
+        sleeping_idle: function () {
+            setAction(animationActions[5])
+        }
+        
     };    
 
     gui.add(param, 'campoTexto').name("nome obj");
@@ -72,6 +100,8 @@ var guiFunction = function(){
     posZ.onChange(function (parametroQualquer){
         objCardirectionalLightregado.position.z = parametroQualquer;
     });
+
+    animationsFolder = gui.addFolder("Animations");
     
     gui.open();
    
@@ -80,12 +110,12 @@ var guiFunction = function(){
 var criaGround = function (){
 
     var materialArray = [];
-    var texture_ft = new THREE.TextureLoader().load( 'assets/texture/meadow/meadow_ft.jpg');
-    var texture_bk = new THREE.TextureLoader().load( 'assets/texture/meadow/meadow_bk.jpg');
-    var texture_up = new THREE.TextureLoader().load( 'assets/texture/meadow/meadow_up.jpg');
-    var texture_dn = new THREE.TextureLoader().load( 'assets/texture/meadow/meadow_dn.jpg');
-    var texture_rt = new THREE.TextureLoader().load( 'assets/texture/meadow/meadow_rt.jpg');
-    var texture_lf = new THREE.TextureLoader().load( 'assets/texture/meadow/meadow_lf.jpg');
+    var texture_ft = new THREE.TextureLoader().load( 'assets/texture/sky/sky_ft.jpg');
+    var texture_bk = new THREE.TextureLoader().load( 'assets/texture/sky/sky_bk.jpg');
+    var texture_up = new THREE.TextureLoader().load( 'assets/texture/sky/sky_up.jpg');
+    var texture_dn = new THREE.TextureLoader().load( 'assets/texture/sky/sky_dn.jpg');
+    var texture_rt = new THREE.TextureLoader().load( 'assets/texture/sky/sky_rt.jpg');
+    var texture_lf = new THREE.TextureLoader().load( 'assets/texture/sky/sky_lf.jpg');
       
     materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
     materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
@@ -99,22 +129,6 @@ var criaGround = function (){
     var skyboxGeo = new THREE.BoxGeometry( 10000, 10000, 10000);
     skybox = new THREE.Mesh( skyboxGeo, materialArray );
     scene.add( skybox );
-    
-    textureLoader = new THREE.TextureLoader();
-    planeTexture = textureLoader.load('assets/texture/palco_festa/Tiles074_2K_Color.jpg');
-    
-    material = new THREE.MeshStandardMaterial({map : planeTexture});
-    material.normalMap =  textureLoader.load('assets/texture/palco_festa/Tiles074_2K_Normal.jpg');
-    
-    plane = new THREE.Mesh(
-        new THREE.PlaneGeometry(100, 100, 10, 10),
-        material
-    );
-    plane.castShadow = false;
-    plane.receiveShadow = true;
-    plane.rotation.x = -Math.PI / 2;
-
-    scene.add(plane);
 
 }
 
@@ -132,7 +146,6 @@ var iluminacaoDirectional = function(){
     directionalLight.shadow.camera.top = -1000;
 
     directionalLight.target = skybox;
-    directionalLight.target = plane;
 
     scene.add(directionalLight);
     scene.add(directionalLight.target);
@@ -145,31 +158,115 @@ var loadObj = function(){
     objLoader = new THREE.OBJLoader();
     fbxLoader = new THREE.FBXLoader();
     textureLoader = new THREE.TextureLoader();
-    
-    fbxLoader.load( 'assets/models/adam.fbx', function ( object ) {
-        objCarregado.push(object);
+
+    fbxLoader.load(
+        'assets/models/airplane.fbx', //arquivo que vamos carregar
+        function(object){
+            airplane = object;
+
+            object.traverse( function ( child ) {
+                        if ( child instanceof THREE.Mesh ) {
+                            console.log(child);
+                            child.material.shininess = 0;
+                        }
+                    });
+
+            airplane.scale.x = 0.5;
+            airplane.scale.y = 0.5;
+            airplane.scale.z = 0.5;
+            airplane.position.y = -33;
+            airplane.castShadow = true;
+            scene.add(airplane); 
+
+        },//metodo, tudo deu certo
+        function( andamento) {
+            console.log((andamento.loaded / andamento.total *100) + "% pronto!");
+        },//metodo executa enquanto carrega
+        function (error){
+            console.log("Deu caca: " + error);
+        } //metodo deu merda
+    );
+
+    fbxLoader.load( 'assets/models/vanguard_t_choonyung.fbx', function ( object ) {
+
         object.scale.set(0.25, 0.25, 0.25);
+        mixer = new THREE.AnimationMixer(object);
 
-        object.traverse( function ( child ) {
+        let animationAction = mixer.clipAction(object.animations[0]);
+        animationActions.push(animationAction);
+        animationsFolder.add(param, "default");
+        activeAction = animationActions[0];
 
-            if ( child.isMesh ) {
-
-                child.material.shininess = 0;
-                child.castShadow = true;
-                child.receiveShadow = true;
-
-            }
-
-        } );    
-
-        object.position.z = 0;
-        object.position.x = 0;
-        object.position.y = 0;
-        object.rotation.y = 5;
         scene.add( object );
 
+        //add an animation from another file
+        fbxLoader.load('assets/animations/samba.fbx', function (object) {
+            
+            console.log("loaded samba");
+
+            let animationAction = mixer.clipAction(object.animations[0]);
+            animationActions.push(animationAction);    
+            animationsFolder.add(param, "samba");
+
+            fbxLoader.load('assets/animations/bellydancing.fbx', function (object) {
+            
+                console.log("loaded Bellydancing");
+    
+                let animationAction = mixer.clipAction(object.animations[0]);
+                animationActions.push(animationAction);    
+                animationsFolder.add(param, "bellydancing");
+
+                fbxLoader.load('assets/animations/goofy_running.fbx', function (object) {
+            
+                    console.log("loaded goofy running");
+        
+                    let animationAction = mixer.clipAction(object.animations[0]);
+                    animationActions.push(animationAction);    
+                    animationsFolder.add(param, "goofy_running");
+
+                    fbxLoader.load('assets/animations/look_around.fbx', function (object) {
+            
+                        console.log("loaded look around");
+            
+                        let animationAction = mixer.clipAction(object.animations[0]);
+                        animationActions.push(animationAction);    
+                        animationsFolder.add(param, "look_around");
+
+                        fbxLoader.load('assets/animations/sleeping_idle.fbx', function (object) {
+            
+                            console.log("loaded sleeping_idle");
+                
+                            let animationAction = mixer.clipAction(object.animations[0]);
+                            animationActions.push(animationAction);    
+                            animationsFolder.add(param, "sleeping_idle");
+
+                        } );
+
+                    } );
+
+                } );
+            
+            
+            } );
+
+        } );
+        
     } );
 
+}
+
+const setAction = function(toAction) {
+
+    if (toAction == activeAction)
+        console.log("me, eh igual");
+
+    if (toAction != activeAction) {
+        lastAction = activeAction;
+        activeAction = toAction;
+        lastAction.stop();
+        activeAction.reset();
+        activeAction.play();
+    }
 }
 
 var init = function() {
@@ -181,7 +278,7 @@ var init = function() {
     const near = 1;
     const far = 10000;
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.set(10, 20, -100);
+    camera.position.set(10, 100, -200);
 
     renderer = new THREE.WebGLRenderer({antialias:true});
     renderer.setSize(window.innerWidth,window.innerHeight);
@@ -208,9 +305,15 @@ var init = function() {
 
 var render = function() {
 
-    renderer.render(scene,camera);
-
     requestAnimationFrame(render);
+
+    let delta = clock.getDelta(); //pegando o offset do clock
+
+    if(typeof mixer != "undefined"){ //faz a animação avançar de quadro (frame)
+        mixer.update(delta); //
+    }
+
+    renderer.render(scene,camera);
 
 }
 
