@@ -23,6 +23,8 @@ var objCarregado = [];
 var directionObject = [];
 var animationsFolder;
 
+var vanguard;
+
 var clock = new THREE.Clock();
 
 var guiFunction = function(){
@@ -40,24 +42,53 @@ var guiFunction = function(){
         y:0,
         z:0,
         default: function () {
+            vanguard.position.x = 0;
+            vanguard.position.y = 0;
+            vanguard.position.z = 0;
             setAction(animationActions[0])
         },
         samba: function () {
+            vanguard.position.x = 0; 
+            vanguard.position.y = 0;
+            vanguard.position.z = 0;
             setAction(animationActions[1])
         },
         bellydancing: function () {
+            vanguard.position.x = 0;
+            vanguard.position.y = 0;
+            vanguard.position.z = 0;
             setAction(animationActions[2])
         },
         goofy_running: function () {
+            vanguard.position.x = 0;
+            vanguard.position.y = 0;
+            vanguard.position.z = 0;
             setAction(animationActions[3])
         },
         look_around: function () {
+            vanguard.position.x = 0;
+            vanguard.position.y = 0;
+            vanguard.position.z = 0;
             setAction(animationActions[4])
         },
         sleeping_idle: function () {
+            vanguard.position.x = 0;
+            vanguard.position.y = 0;
+            vanguard.position.z = 0;
             setAction(animationActions[5])
+        },
+        jazz_dancing: function () {
+            vanguard.position.x = 0;
+            vanguard.position.y = 0;
+            vanguard.position.z = 0;
+            setAction(animationActions[6])
+        },
+        breakdance_freezes: function () {
+            vanguard.position.x = -100;
+            vanguard.position.y = -40;
+            vanguard.position.z = 25;
+            setAction(animationActions[7])
         }
-        
     };    
 
     gui.add(param, 'campoTexto').name("nome obj");
@@ -191,6 +222,7 @@ var loadObj = function(){
 
         object.scale.set(0.25, 0.25, 0.25);
         mixer = new THREE.AnimationMixer(object);
+        vanguard = object;
 
         let animationAction = mixer.clipAction(object.animations[0]);
         animationActions.push(animationAction);
@@ -239,6 +271,25 @@ var loadObj = function(){
                             let animationAction = mixer.clipAction(object.animations[0]);
                             animationActions.push(animationAction);    
                             animationsFolder.add(param, "sleeping_idle");
+
+                            fbxLoader.load('assets/animations/jazz_dancing.fbx', function (object) {
+            
+                                console.log("loaded jazz_dancing");
+                    
+                                let animationAction = mixer.clipAction(object.animations[0]);
+                                animationActions.push(animationAction);    
+                                animationsFolder.add(param, "jazz_dancing");
+
+                                fbxLoader.load('assets/animations/breakdance_freezes.fbx', function (object) {
+            
+                                    console.log("loaded breakdance_freezes");
+                                    
+                                    let animationAction = mixer.clipAction(object.animations[0]);
+                                    animationActions.push(animationAction);    
+                                    animationsFolder.add(param, "breakdance_freezes");
+                                } );
+                                
+                            } );
 
                         } );
 
