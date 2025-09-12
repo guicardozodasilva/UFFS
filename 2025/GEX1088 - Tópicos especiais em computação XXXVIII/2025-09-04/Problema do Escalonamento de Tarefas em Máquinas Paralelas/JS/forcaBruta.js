@@ -124,7 +124,8 @@ function lerInstancia(caminho) {
 // -------------------------------------------------
 
 // Caminho da pasta com os arquivos de instância
-const pastaInstancias = path.join(__dirname, '../problema_escalonamento_instancias');
+//const pastaInstancias = path.join(__dirname, '../problema_escalonamento_instancias');
+const pastaInstancias = path.join(__dirname, '../problema_escalonamento_2_maquinas_instancias');
 
 // Pega todos os arquivos .txt e ordena
 const arquivos = fs.readdirSync(pastaInstancias)

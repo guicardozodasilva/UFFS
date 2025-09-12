@@ -15,7 +15,7 @@
  *  - Gap absoluto = Makespan_heurística - Makespan_ótimo
  *  - Gap percentual = (Gap absoluto / Makespan_ótimo) * 100
  *
- * PRINCIPAIS RESULTADOS OBSERVADOS (do experimento do aluno)
+ * PRINCIPAIS RESULTADOS OBSERVADOS
  *  - LPT ficou muito próximo do ótimo na maioria das instâncias e, quando não foi ótima,
  *    o desvio foi baixo (ex.: 6,25% em m03_n10_01).
  *  - A heurística sem ordenação teve desempenho mais fraco, chegando a ~35,56% acima do ótimo
@@ -159,16 +159,28 @@ arquivos.forEach((arquivo, idx) => {
   console.log(`Instância ${idx + 1}: ${arquivo} (${nm} máquinas, ${nt} tarefas)`);
 
   console.time('Força Bruta');
+  var inicioOpt = performance.now();
   const opt = forcaBruta(nm, nt, t);
   console.timeEnd('Força Bruta');
+  var fimOpt = performance.now();
+  
+  var tempoTotalOpt = fimOpt - inicioOpt;
 
   console.time('Heurística LPT');
+  var inicioLpt = performance.now();
   const lpt = heuristicaLPT(nm, nt, t);
   console.timeEnd('Heurística LPT');
+  var fimLpt = performance.now();
+  //salvar tempo de execução da heurística LPT
+  var tempoTotalLpt = fimLpt - inicioLpt;
 
   console.time('Heurística Sem Ordenar');
+  var inicioHno = performance.now();
   const hno = heuristicaSemOrdenar(nm, nt, t);
   console.timeEnd('Heurística Sem Ordenar');
+  var fimHno = performance.now();
+  //salvar tempo de execução da heurística sem ordenar
+  var tempoTotalHno = fimHno - inicioHno;
 
   // Resultados
   console.log(`  ÓTIMO (Força Bruta):        ${opt.makespan}`);
@@ -185,10 +197,13 @@ arquivos.forEach((arquivo, idx) => {
   resumo.push({
     arquivo,
     opt: opt.makespan,
+    optExecutionTime: tempoTotalOpt,
     lpt: lpt.makespan,
+    lptExecutionTime: tempoTotalLpt,
     gapLPT: lpt.makespan - opt.makespan,
     pctLPT: ((lpt.makespan - opt.makespan) / opt.makespan) * 100,
     hno: hno.makespan,
+    hnoExecutionTime: tempoTotalHno,
     gapHNO: hno.makespan - opt.makespan,
     pctHNO: ((hno.makespan - opt.makespan) / opt.makespan) * 100,
   });
@@ -199,12 +214,15 @@ console.log('----- RESUMO GERAL -----');
 const header =
   pad('Arquivo', 32) +
   pad('Ótimo', 8) +
+  pad('Tempo Ótimo', 12) +
   pad('LPT', 8) +
-  pad('Gap LPT', 10) +
-  pad('% LPT', 8) +
+  pad('Tempo LPT', 12) +
+  //pad('Gap LPT', 10) +
+  //pad('% LPT', 8) +
   pad('SemOrd', 8) +
-  pad('Gap SOrd', 10) +
-  pad('% SOrd', 8);
+  pad('Tempo SemOrd', 12);
+  //pad('Gap SOrd', 10) +
+  //pad('% SOrd', 8);
 console.log(header);
 console.log('-'.repeat(header.length));
 
@@ -212,11 +230,14 @@ resumo.forEach(r => {
   console.log(
     pad(r.arquivo, 32) +
     pad(r.opt, 8) +
+    pad(fmt2(r.optExecutionTime) + 's', 12) +
     pad(r.lpt, 8) +
-    pad('+' + r.gapLPT, 10) +
-    pad(fmt2(r.pctLPT) + '%', 8) +
+    pad(fmt2(r.lptExecutionTime) + 's', 12) +
+    //pad('+' + r.gapLPT, 10) +
+    //pad(fmt2(r.pctLPT) + '%', 8) +
     pad(r.hno, 8) +
-    pad('+' + r.gapHNO, 10) +
-    pad(fmt2(r.pctHNO) + '%', 8)
+    pad(fmt2(r.hnoExecutionTime) + 's', 12)
+    //pad('+' + r.gapHNO, 10) +
+    //pad(fmt2(r.pctHNO) + '%', 8)
   );
 });
